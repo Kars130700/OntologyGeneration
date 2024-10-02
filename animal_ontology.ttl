@@ -1,0 +1,38 @@
+@prefix ns1: <http://example.org/animal#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns1:Eagle a ns1:Bird ;
+    ns1:hasAge 3 ;
+    ns1:hasName "Eagle" .
+
+ns1:hasAge a owl:DatatypeProperty ;
+    rdfs:domain ns1:Animal ;
+    rdfs:range xsd:integer .
+
+ns1:hasName a owl:DatatypeProperty ;
+    rdfs:domain ns1:Animal ;
+    rdfs:range xsd:string .
+
+ns1:hasOffspring a owl:ObjectProperty ;
+    rdfs:domain ns1:Mammal ;
+    rdfs:range ns1:Mammal .
+
+ns1:Bird a owl:Class ;
+    rdfs:subClassOf ns1:Animal .
+
+ns1:Lion a ns1:Mammal ;
+    ns1:hasAge 5 ;
+    ns1:hasName "Lion" .
+
+ns1:Simba a ns1:Lion ;
+    ns1:hasAge 2 ;
+    ns1:hasName "Simba" ;
+    ns1:hasOffspring ns1:Simba .
+
+ns1:Mammal a owl:Class ;
+    rdfs:subClassOf ns1:Animal .
+
+ns1:Animal a owl:Class .
+

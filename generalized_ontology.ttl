@@ -1,0 +1,234 @@
+@prefix ex: <http://example.org/ear#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/ear> a owl:Ontology .
+
+ex:Entire_ear_hair a owl:Class ;
+    rdfs:label "Entire ear hair" ;
+    rdfs:subClassOf ex:Ear_hair .
+
+ex:Entire_external_ear a owl:Class ;
+    rdfs:label "Entire external ear" ;
+    rdfs:subClassOf ex:External_ear_structure .
+
+ex:Entire_inner_ear_and_Eustachian_canal a owl:Class ;
+    rdfs:label "Entire inner ear and Eustachian canal" ;
+    rdfs:subClassOf ex:Inner_ear_andor_Eustachian_canal_structures .
+
+ex:Entire_left_ear a owl:Class ;
+    rdfs:label "Entire left ear" ;
+    rdfs:subClassOf ex:Left_ear_structure .
+
+ex:Entire_left_external_ear a owl:Class ;
+    rdfs:label "Entire left external ear" ;
+    rdfs:subClassOf ex:Left_external_ear_structure .
+
+ex:Entire_left_inner_ear a owl:Class ;
+    rdfs:label "Entire left inner ear" ;
+    rdfs:subClassOf ex:Left_inner_ear_structure .
+
+ex:Entire_left_middle_ear a owl:Class ;
+    rdfs:label "Entire left middle ear" ;
+    rdfs:subClassOf ex:Left_middle_ear_structure .
+
+ex:Entire_lymphatic_vessel_of_ear a owl:Class ;
+    rdfs:label "Entire lymphatic vessel of ear" ;
+    rdfs:subClassOf ex:Structure_of_lymphatic_vessel_of_ear .
+
+ex:Entire_middle_ear a owl:Class ;
+    rdfs:label "Entire middle ear" ;
+    rdfs:subClassOf ex:Middle_ear_structure .
+
+ex:Entire_right_ear a owl:Class ;
+    rdfs:label "Entire right ear" ;
+    rdfs:subClassOf ex:Right_ear_structure .
+
+ex:Entire_right_external_ear a owl:Class ;
+    rdfs:label "Entire right external ear" ;
+    rdfs:subClassOf ex:Right_external_ear_structure .
+
+ex:Entire_right_inner_ear a owl:Class ;
+    rdfs:label "Entire right inner ear" ;
+    rdfs:subClassOf ex:Right_inner_ear_structure .
+
+ex:Entire_right_middle_ear a owl:Class ;
+    rdfs:label "Entire right middle ear" ;
+    rdfs:subClassOf ex:Right_middle_ear_structure .
+
+ex:External_ear_part a owl:Class ;
+    rdfs:label "External ear part" ;
+    rdfs:subClassOf ex:External_ear_structure .
+
+ex:Inner_ear_structure a owl:Class ;
+    rdfs:label "Inner ear structure" ;
+    rdfs:subClassOf ex:Inner_ear_andor_Eustachian_canal_structures .
+
+ex:Isthmus_tympani a owl:Class ;
+    rdfs:label "Isthmus tympani" ;
+    rdfs:subClassOf ex:Middle_ear_structure .
+
+ex:Left_Eustachian_canal_structure a owl:Class ;
+    rdfs:label "Left Eustachian canal structure" ;
+    rdfs:subClassOf ex:Left_middle_ear_structure .
+
+ex:Left_external_auditory_canal_structure a owl:Class ;
+    rdfs:label "Left external auditory canal structure" ;
+    rdfs:subClassOf ex:Left_external_ear_structure .
+
+ex:Left_labyrinth_structure a owl:Class ;
+    rdfs:label "Left labyrinth structure" ;
+    rdfs:subClassOf ex:Left_inner_ear_structure .
+
+ex:Mastoid_antrum_structure a owl:Class ;
+    rdfs:label "Mastoid antrum structure" ;
+    rdfs:subClassOf ex:Middle_ear_structure .
+
+ex:Right_Eustachian_canal_structure a owl:Class ;
+    rdfs:label "Right Eustachian canal structure" ;
+    rdfs:subClassOf ex:Right_middle_ear_structure .
+
+ex:Right_external_auditory_canal_structure a owl:Class ;
+    rdfs:label "Right external auditory canal structure" ;
+    rdfs:subClassOf ex:Right_external_ear_structure .
+
+ex:Right_labyrinth_structure a owl:Class ;
+    rdfs:label "Right labyrinth structure" ;
+    rdfs:subClassOf ex:Right_inner_ear_structure .
+
+ex:Secondary_tympanic_membrane a owl:Class ;
+    rdfs:label "Secondary tympanic membrane" ;
+    rdfs:subClassOf ex:Middle_ear_structure .
+
+ex:Skin_structure_of_left_ear a owl:Class ;
+    rdfs:label "Skin structure of left ear" ;
+    rdfs:subClassOf ex:Left_external_ear_structure .
+
+ex:Skin_structure_of_right_ear a owl:Class ;
+    rdfs:label "Skin structure of right ear" ;
+    rdfs:subClassOf ex:Right_external_ear_structure .
+
+ex:Structure_of_left_pinna a owl:Class ;
+    rdfs:label "Structure of left pinna" ;
+    rdfs:subClassOf ex:Left_external_ear_structure .
+
+ex:Structure_of_left_tympanic_membrane a owl:Class ;
+    rdfs:label "Structure of left tympanic membrane" ;
+    rdfs:subClassOf ex:Left_middle_ear_structure .
+
+ex:Structure_of_mucous_membrane_of_middle_ear a owl:Class ;
+    rdfs:label "Structure of mucous membrane of middle ear" ;
+    rdfs:subClassOf ex:Middle_ear_structure .
+
+ex:Structure_of_ossicular_muscle a owl:Class ;
+    rdfs:label "Structure of ossicular muscle" ;
+    rdfs:subClassOf ex:Middle_ear_structure .
+
+ex:Structure_of_pharyngotympanic_tube a owl:Class ;
+    rdfs:label "Structure of pharyngotympanic tube" ;
+    rdfs:subClassOf ex:Inner_ear_andor_Eustachian_canal_structures,
+        ex:Middle_ear_structure .
+
+ex:Structure_of_right_pinna a owl:Class ;
+    rdfs:label "Structure of right pinna" ;
+    rdfs:subClassOf ex:Right_external_ear_structure .
+
+ex:Structure_of_right_tympanic_membrane a owl:Class ;
+    rdfs:label "Structure of right tympanic membrane" ;
+    rdfs:subClassOf ex:Right_middle_ear_structure .
+
+ex:Structure_of_soft_tissue_of_middle_ear a owl:Class ;
+    rdfs:label "Structure of soft tissue of middle ear" ;
+    rdfs:subClassOf ex:Middle_ear_structure .
+
+ex:Structure_of_tympanic_cavity_of_left_ear a owl:Class ;
+    rdfs:label "Structure of tympanic cavity of left ear" ;
+    rdfs:subClassOf ex:Left_middle_ear_structure .
+
+ex:Structure_of_tympanic_cavity_of_right_ear a owl:Class ;
+    rdfs:label "Structure of tympanic cavity of right ear" ;
+    rdfs:subClassOf ex:Right_middle_ear_structure .
+
+ex:Structure_of_tympanic_nerve a owl:Class ;
+    rdfs:label "Structure of tympanic nerve" ;
+    rdfs:subClassOf ex:Middle_ear_structure .
+
+ex:Structure_of_tympanic_plexus a owl:Class ;
+    rdfs:label "Structure of tympanic plexus" ;
+    rdfs:subClassOf ex:Middle_ear_structure .
+
+ex:Structure_of_wall_of_tympanic_cavity a owl:Class ;
+    rdfs:label "Structure of wall of tympanic cavity" ;
+    rdfs:subClassOf ex:Middle_ear_structure .
+
+ex:Tympanic_cavity_structure a owl:Class ;
+    rdfs:label "Tympanic cavity structure" ;
+    rdfs:subClassOf ex:Middle_ear_structure .
+
+ex:Tympanic_membrane_structure a owl:Class ;
+    rdfs:label "Tympanic membrane structure" ;
+    rdfs:subClassOf ex:Middle_ear_structure .
+
+ex:Ear_hair a owl:Class ;
+    rdfs:label "Ear hair" ;
+    rdfs:subClassOf ex:Ear_part .
+
+ex:Structure_of_lymphatic_vessel_of_ear a owl:Class ;
+    rdfs:label "Structure of lymphatic vessel of ear" ;
+    rdfs:subClassOf ex:Ear_part .
+
+ex:Left_inner_ear_structure a owl:Class ;
+    rdfs:label "Left inner ear structure" ;
+    rdfs:subClassOf ex:Left_ear_structure .
+
+ex:Right_inner_ear_structure a owl:Class ;
+    rdfs:label "Right inner ear structure" ;
+    rdfs:subClassOf ex:Right_ear_structure .
+
+ex:Inner_ear_andor_Eustachian_canal_structures a owl:Class ;
+    rdfs:label "Inner ear and/or Eustachian canal structures" ;
+    rdfs:subClassOf ex:Ear_part .
+
+ex:ear a owl:Class ;
+    rdfs:label "ear" .
+
+ex:External_ear_structure a owl:Class ;
+    rdfs:label "External ear structure" ;
+    rdfs:subClassOf ex:Ear_part .
+
+ex:Left_ear_structure a owl:Class ;
+    rdfs:label "Left ear structure" ;
+    rdfs:subClassOf ex:ear .
+
+ex:Left_external_ear_structure a owl:Class ;
+    rdfs:label "Left external ear structure" ;
+    rdfs:subClassOf ex:External_ear_structure,
+        ex:Left_ear_structure .
+
+ex:Left_middle_ear_structure a owl:Class ;
+    rdfs:label "Left middle ear structure" ;
+    rdfs:subClassOf ex:Left_ear_structure,
+        ex:Middle_ear_structure .
+
+ex:Right_ear_structure a owl:Class ;
+    rdfs:label "Right ear structure" ;
+    rdfs:subClassOf ex:ear .
+
+ex:Right_external_ear_structure a owl:Class ;
+    rdfs:label "Right external ear structure" ;
+    rdfs:subClassOf ex:External_ear_structure,
+        ex:Right_ear_structure .
+
+ex:Right_middle_ear_structure a owl:Class ;
+    rdfs:label "Right middle ear structure" ;
+    rdfs:subClassOf ex:Middle_ear_structure,
+        ex:Right_ear_structure .
+
+ex:Ear_part a owl:Class ;
+    rdfs:label "Ear part" ;
+    rdfs:subClassOf ex:ear .
+
+ex:Middle_ear_structure a owl:Class ;
+    rdfs:label "Middle ear structure" ;
+    rdfs:subClassOf ex:Ear_part .
+
