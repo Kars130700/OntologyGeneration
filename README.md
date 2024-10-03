@@ -16,5 +16,5 @@ pip install -r requirements.txt
 
 ### Step 2: 
 
-Run the program from SNOMED.py. With the call buildOWL('term'), you can build a new ontology. Change the depth parameter to specify the depth of the tree.
-Use visualize_owl("file_name.ttl") to visualize the generated tree structure
+Run the program from SNOMED.py. With the call ```buildOWL('term')```, you can build a new ontology. Change the depth parameter to specify the depth of the tree.
+Use ```visualize_owl("file_name.ttl")``` to visualize the generated tree structure
