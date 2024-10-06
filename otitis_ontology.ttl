@@ -1,0 +1,38 @@
+@prefix otex: <http://example.org/otitis#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+otex:138875005 a owl:Class ;
+    rdfs:label "SNOMED CT Concept" .
+
+otex:123037004 a owl:Class ;
+    rdfs:label "Body structure" ;
+    rdfs:subClassOf otex:138875005 .
+
+otex:71388002 a owl:Class ;
+    rdfs:label "Procedure" ;
+    rdfs:subClassOf otex:138875005 .
+
+otex:404684003 a owl:Class ;
+    rdfs:label "Clinical finding" ;
+    rdfs:subClassOf otex:138875005 ;
+    otex:hasFindingSite otex:123037004 .
+
+otex:64572001 a owl:Class ;
+    rdfs:label "Disease (disorder)" ;
+    rdfs:subClassOf otex:404684003 .
+
+otex:3135009 a owl:Class ;
+    rdfs:label "Otitis externa" ;
+    rdfs:subClassOf otex:64572001 ;
+    otex:hasFindingSite otex:84301002 .
+
+otex:84301002 a owl:Class ;
+    rdfs:label "External auditory canal structure" ;
+    rdfs:subClassOf otex:123037004 .
+
+otex:hasFindingSite a owl:ObjectProperty ;
+    rdfs:label "Finding site" ;
+    rdfs:domain otex:404684003 ;
+    rdfs:range otex:123037004 .

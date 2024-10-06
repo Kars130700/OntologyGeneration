@@ -87,5 +87,6 @@ def buildOWL(concept):
     g.add((main_class, RDFS.label, Literal(concept)))
     print(buildOntology(concept, [], 3, ex, g))
 
-buildOWL("ear")
-visualize_owl(file_name = "generalized_ontology.ttl")
+# buildOWL("ear")
+# visualize_owl(file_name = "generalized_ontology.ttl")
+visualize_owl(file_name = "otitis_ontology.ttl")

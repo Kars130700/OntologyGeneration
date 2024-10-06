@@ -21,7 +21,7 @@ def visualize_owl(file_name):
             labels[str(s)] = node_label  # Store the label to use for visualization
         elif p == RDFS.subClassOf:
             G.add_edge(str(o), str(s), label='subClassOf')  # Note: direction is subclass -> superclass
-        elif p in {ex.hasName, ex.hasAge, ex.hasOffspring}:
+        elif p not in {RDFS.label}:
             G.add_edge(str(s), str(o), label=str(p.split('#')[-1]))
 
 
