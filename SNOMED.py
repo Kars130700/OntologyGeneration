@@ -100,3 +100,6 @@ buildOWL("ear")
 
 #visualize_owl(file_name = "generalized_ontology.ttl")
 #visualize_owl(file_name = "otitis_externa_ontology.ttl")
+# visualize_owl(file_name = "generalized_ontology.ttl")
+visualize_owl(file_name = "otitis_ontology.ttl")
+

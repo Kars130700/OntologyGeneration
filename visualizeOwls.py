@@ -40,6 +40,8 @@ def visualize_owl(file_name):
                 print(p)
                 print(s)
             G.add_edge(str(o), str(s), label='subClassOf')  # Note: direction is subclass -> superclass
+        elif p not in {RDFS.label}:
+            G.add_edge(str(s), str(o), label=str(p.split('#')[-1]))
 
         # Add other relationships, including isPartOf
         #TODO this doesnt work, because it does not enter the loop
