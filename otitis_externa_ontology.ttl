@@ -1,0 +1,64 @@
+@prefix ex: <http://example.org/otitis_externa#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+### Defining Classes ###
+ex:Patient a owl:Class ;
+    rdfs:label "Patient" .
+
+ex:Head rdf:type owl:Class ;
+    rdfs:label "Head" ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty ex:isPartOf ;
+        owl:someValuesFrom ex:Patient
+    ] .
+
+ex:Ear a owl:Class ;
+    rdfs:label "Ear" ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty ex:isPartOf ;
+        owl:someValuesFrom ex:Head
+    ] .
+
+ex:External_auditory_canal_structure a owl:Class ;
+    rdfs:label "External auditory canal structure" ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty ex:isPartOf ;
+        owl:someValuesFrom ex:Ear
+    ] .
+
+ex:Observation a owl:Class ;
+    rdfs:label "Observation" ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty ex:  ;
+        owl:someValuesFrom ex:External_auditory_canal_structure
+    ] .
+
+
+ex:hasSwelling a owl:DatatypeProperty ;
+    rdfs:domain ex:Observation ;
+    rdfs:range rdfs:Literal ;
+    rdfs:label "Indicates swelling" .
+
+ex:hasColor a owl:DatatypeProperty ;
+    rdfs:domain ex:Observation ;
+    rdfs:range rdfs:Literal ;
+    rdfs:label "Color of the observation" .
+
+ex:EarDrum a owl:Class ;
+    rdfs:label "Eardrum" ;
+    rdfs:subClassOf [
+        rdf:type owl:Restriction ;
+        owl:onProperty ex:isPartOf ;
+        owl:someValuesFrom ex:Ear
+    ] .
+
+
+ex:ObservationInstance a ex:Observation ;
+    ex:hasSwelling "true" ;        
+    ex:hasColor "red" .    

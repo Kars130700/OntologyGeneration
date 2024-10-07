@@ -94,6 +94,7 @@ def getChildrenById(conceptId, limit=3, depth = 5):
     response = urlopen_with_header(url).read()
     data = json.loads(response.decode('utf-8'))
     children = []
+    print(data)
     for child in data:
         concept_id = child.get("conceptId")
         fsn = child.get("fsn", {}).get("term")

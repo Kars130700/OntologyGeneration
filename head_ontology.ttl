@@ -1,0 +1,655 @@
+@prefix ex: <http://example.org/Head_structure#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/Head_structure> a owl:Ontology .
+
+ex:Aryepiglottic_fold_structure a owl:Class ;
+    rdfs:label "Aryepiglottic fold structure" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Bone_andor_joint_structure_of_cranium a owl:Class ;
+    rdfs:label "Bone and/or joint structure of cranium" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Bone_structure_of_head a owl:Class ;
+    rdfs:label "Bone structure of head" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Brain_structure a owl:Class ;
+    rdfs:label "Brain structure" ;
+    rdfs:subClassOf ex:Intracranial_structure .
+
+ex:Buccal_fat_pad a owl:Class ;
+    rdfs:label "Buccal fat pad" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Connective_tissue_layer_of_tympanic_membrane a owl:Class ;
+    rdfs:label "Connective tissue layer of tympanic membrane" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Cranial_cavity_structure a owl:Class ;
+    rdfs:label "Cranial cavity structure" ;
+    rdfs:subClassOf ex:Intracranial_structure .
+
+ex:Entire_blood_vessel_of_head a owl:Class ;
+    rdfs:label "Entire blood vessel of head" ;
+    rdfs:subClassOf ex:Vascular_structure_of_head .
+
+ex:Entire_blood_vessel_of_head_of_fetus a owl:Class ;
+    rdfs:label "Entire blood vessel of head of fetus" ;
+    rdfs:subClassOf ex:Structure_of_blood_vessel_of_head_of_fetus .
+
+ex:Entire_epicranium a owl:Class ;
+    rdfs:label "Entire epicranium" ;
+    rdfs:subClassOf ex:Epicranium_structure .
+
+ex:Entire_fetal_bone_of_head a owl:Class ;
+    rdfs:label "Entire fetal bone of head" ;
+    rdfs:subClassOf ex:Structure_of_fetal_bone_of_head .
+
+ex:Entire_fetal_brain_cerebrospinal_fluid_pathway a owl:Class ;
+    rdfs:label "Entire fetal brain cerebrospinal fluid pathway" ;
+    rdfs:subClassOf ex:Structure_of_fetal_brain_cerebrospinal_fluid_pathway .
+
+ex:Entire_fetal_bregma a owl:Class ;
+    rdfs:label "Entire fetal bregma" ;
+    rdfs:subClassOf ex:Structure_of_fetal_bregma .
+
+ex:Entire_fetal_brow a owl:Class ;
+    rdfs:label "Entire fetal brow" ;
+    rdfs:subClassOf ex:Structure_of_fetal_brow .
+
+ex:Entire_fetal_cephalic_prominence a owl:Class ;
+    rdfs:label "Entire fetal cephalic prominence" ;
+    rdfs:subClassOf ex:Structure_of_fetal_cephalic_prominence .
+
+ex:Entire_fetal_chondrocranium a owl:Class ;
+    rdfs:label "Entire fetal chondrocranium" ;
+    rdfs:subClassOf ex:Structure_of_fetal_chondrocranium .
+
+ex:Entire_fetal_cranial_vault a owl:Class ;
+    rdfs:label "Entire fetal cranial vault" ;
+    rdfs:subClassOf ex:Structure_of_fetal_cranial_vault .
+
+ex:Entire_fetal_head a owl:Class ;
+    rdfs:label "Entire fetal head" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Entire_fetal_lip a owl:Class ;
+    rdfs:label "Entire fetal lip" ;
+    rdfs:subClassOf ex:Structure_of_fetal_lip .
+
+ex:Entire_fetal_occiput a owl:Class ;
+    rdfs:label "Entire fetal occiput" ;
+    rdfs:subClassOf ex:Structure_of_fetal_occiput .
+
+ex:Entire_fetal_parietal_boss a owl:Class ;
+    rdfs:label "Entire fetal parietal boss" ;
+    rdfs:subClassOf ex:Structure_of_fetal_parietal_boss .
+
+ex:Entire_fetal_vertex a owl:Class ;
+    rdfs:label "Entire fetal vertex" ;
+    rdfs:subClassOf ex:Structure_of_fetal_vertex .
+
+ex:Entire_head a owl:Class ;
+    rdfs:label "Entire head" ;
+    rdfs:subClassOf ex:Head_structure .
+
+ex:Entire_intracranial_structure a owl:Class ;
+    rdfs:label "Entire intracranial structure" ;
+    rdfs:subClassOf ex:Intracranial_structure .
+
+ex:Entire_lymphatic_system_of_head a owl:Class ;
+    rdfs:label "Entire lymphatic system of head" ;
+    rdfs:subClassOf ex:Structure_of_lymphatic_system_of_head .
+
+ex:Entire_musculoskeletal_system_of_head a owl:Class ;
+    rdfs:label "Entire musculoskeletal system of head" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Entire_nervous_system_of_head a owl:Class ;
+    rdfs:label "Entire nervous system of head" ;
+    rdfs:subClassOf ex:Nervous_structure_of_head .
+
+ex:Entire_oropharynx a owl:Class ;
+    rdfs:label "Entire oropharynx" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Entire_skin_and_subcutaneous_tissue_of_head a owl:Class ;
+    rdfs:label "Entire skin and subcutaneous tissue of head" ;
+    rdfs:subClassOf ex:Skin_andor_subcutaneous_tissue_structure_of_head .
+
+ex:Entire_soft_tissues_of_head a owl:Class ;
+    rdfs:label "Entire soft tissues of head" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Entire_subregion_of_head a owl:Class ;
+    rdfs:label "Entire subregion of head" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Entire_vomeropremaxillary_suture a owl:Class ;
+    rdfs:label "Entire vomero-premaxillary suture" ;
+    rdfs:subClassOf ex:Structure_of_vomeropremaxillary_suture .
+
+ex:Epicranius_muscle_structure a owl:Class ;
+    rdfs:label "Epicranius muscle structure" ;
+    rdfs:subClassOf ex:Epicranium_structure .
+
+ex:Extradural_space_of_brain a owl:Class ;
+    rdfs:label "Extradural space of brain" ;
+    rdfs:subClassOf ex:Intracranial_structure .
+
+ex:Face_structure a owl:Class ;
+    rdfs:label "Face structure" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Frontal_region_structure a owl:Class ;
+    rdfs:label "Frontal region structure" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Glossoepiglottic_fold a owl:Class ;
+    rdfs:label "Glossoepiglottic fold" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Glossotonsillar_sulcus a owl:Class ;
+    rdfs:label "Glossotonsillar sulcus" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Inferior_surface_of_soft_palate a owl:Class ;
+    rdfs:label "Inferior surface of soft palate" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Interstitial_tissue_of_brain a owl:Class ;
+    rdfs:label "Interstitial tissue of brain" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Interstitial_tissue_of_pituitary a owl:Class ;
+    rdfs:label "Interstitial tissue of pituitary" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Intracranial_ganglion a owl:Class ;
+    rdfs:label "Intracranial ganglion" ;
+    rdfs:subClassOf ex:Intracranial_structure .
+
+ex:Intracranial_nerve_structure a owl:Class ;
+    rdfs:label "Intracranial nerve structure" ;
+    rdfs:subClassOf ex:Intracranial_structure .
+
+ex:Intracranial_vascular_structure a owl:Class ;
+    rdfs:label "Intracranial vascular structure" ;
+    rdfs:subClassOf ex:Intracranial_structure,
+        ex:Vascular_structure_of_head .
+
+ex:Jaw_region_structure a owl:Class ;
+    rdfs:label "Jaw region structure" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Joint_structure_of_head a owl:Class ;
+    rdfs:label "Joint structure of head" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Lamina_muscularis_of_mucous_membrane_of_oropharynx a owl:Class ;
+    rdfs:label "Lamina muscularis of mucous membrane of oropharynx" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Mouth_region_structure a owl:Class ;
+    rdfs:label "Mouth region structure" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Muscle_structure_of_orbit a owl:Class ;
+    rdfs:label "Muscle structure of orbit" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Nasal_skeleton_structure a owl:Class ;
+    rdfs:label "Nasal skeleton structure" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Nose_and_nasopharynx_structure a owl:Class ;
+    rdfs:label "Nose and nasopharynx structure" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Occipital_region_structure a owl:Class ;
+    rdfs:label "Occipital region structure" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Oral_soft_tissues_structure a owl:Class ;
+    rdfs:label "Oral soft tissues structure" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Orbital_periosteum a owl:Class ;
+    rdfs:label "Orbital periosteum" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Orbital_wall_structure a owl:Class ;
+    rdfs:label "Orbital wall structure" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Palatal_structure a owl:Class ;
+    rdfs:label "Palatal structure" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Palatine_arch_structure a owl:Class ;
+    rdfs:label "Palatine arch structure" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Parameningeal_structure_in_the_context_of_malignancy a owl:Class ;
+    rdfs:label "Parameningeal structure in the context of malignancy" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Periodontal_ligament a owl:Class ;
+    rdfs:label "Periodontal ligament" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Periosteum_of_jaw a owl:Class ;
+    rdfs:label "Periosteum of jaw" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Pharyngeal_mucous_membrane_structure a owl:Class ;
+    rdfs:label "Pharyngeal mucous membrane structure" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Region_of_cranial_cavity a owl:Class ;
+    rdfs:label "Region of cranial cavity" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Scalp_structure a owl:Class ;
+    rdfs:label "Scalp structure" ;
+    rdfs:subClassOf ex:Epicranium_structure .
+
+ex:Skeletal_muscle_structure_of_head a owl:Class ;
+    rdfs:label "Skeletal muscle structure of head" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Skin_andor_subcutaneous_tissue_of_face a owl:Class ;
+    rdfs:label "Skin and/or subcutaneous tissue of face" ;
+    rdfs:subClassOf ex:Skin_andor_subcutaneous_tissue_structure_of_head .
+
+ex:Skin_andor_subcutaneous_tissue_structure_of_scalp a owl:Class ;
+    rdfs:label "Skin and/or subcutaneous tissue structure of scalp" ;
+    rdfs:subClassOf ex:Skin_andor_subcutaneous_tissue_structure_of_head .
+
+ex:Skin_structure_of_head a owl:Class ;
+    rdfs:label "Skin structure of head" ;
+    rdfs:subClassOf ex:Skin_andor_subcutaneous_tissue_structure_of_head .
+
+ex:Soft_palate_structure a owl:Class ;
+    rdfs:label "Soft palate structure" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Soft_tissue_of_nasopharynx a owl:Class ;
+    rdfs:label "Soft tissue of nasopharynx" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Soft_tissue_of_oropharynx a owl:Class ;
+    rdfs:label "Soft tissue of oropharynx" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Structure_of_accessory_nerve_uvular_branch a owl:Class ;
+    rdfs:label "Structure of accessory nerve uvular branch" ;
+    rdfs:subClassOf ex:Nervous_structure_of_head .
+
+ex:Structure_of_artery_of_head a owl:Class ;
+    rdfs:label "Structure of artery of head" ;
+    rdfs:subClassOf ex:Vascular_structure_of_head .
+
+ex:Structure_of_basiotic_bone a owl:Class ;
+    rdfs:label "Structure of basiotic bone" ;
+    rdfs:subClassOf ex:Structure_of_fetal_bone_of_head .
+
+ex:Structure_of_basisphenoid_bone a owl:Class ;
+    rdfs:label "Structure of basisphenoid bone" ;
+    rdfs:subClassOf ex:Structure_of_fetal_bone_of_head .
+
+ex:Structure_of_blood_vessel_of_orbit_proper a owl:Class ;
+    rdfs:label "Structure of blood vessel of orbit proper" ;
+    rdfs:subClassOf ex:Vascular_structure_of_head .
+
+ex:Structure_of_brain_meninges a owl:Class ;
+    rdfs:label "Structure of brain meninges" ;
+    rdfs:subClassOf ex:Intracranial_structure .
+
+ex:Structure_of_capsule_of_atlantooccipital_joint a owl:Class ;
+    rdfs:label "Structure of capsule of atlantooccipital joint" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_cavernous_plexus_of_nose a owl:Class ;
+    rdfs:label "Structure of cavernous plexus of nose" ;
+    rdfs:subClassOf ex:Vascular_structure_of_head .
+
+ex:Structure_of_cephalic_portion_of_sympathetic_nervous_system a owl:Class ;
+    rdfs:label "Structure of cephalic portion of sympathetic nervous system" ;
+    rdfs:subClassOf ex:Nervous_structure_of_head .
+
+ex:Structure_of_cranial_segment_of_vagus_nerve_trunk a owl:Class ;
+    rdfs:label "Structure of cranial segment of vagus nerve trunk" ;
+    rdfs:subClassOf ex:Nervous_structure_of_head .
+
+ex:Structure_of_ethmoidal_bulla a owl:Class ;
+    rdfs:label "Structure of ethmoidal bulla" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Structure_of_ethmoidal_infundibulum a owl:Class ;
+    rdfs:label "Structure of ethmoidal infundibulum" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Structure_of_fascial_compartment_of_head a owl:Class ;
+    rdfs:label "Structure of fascial compartment of head" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Structure_of_fetal_choroid_plexus a owl:Class ;
+    rdfs:label "Structure of fetal choroid plexus" ;
+    rdfs:subClassOf ex:Structure_of_fetal_brain_cerebrospinal_fluid_pathway .
+
+ex:Structure_of_galea_aponeurotica a owl:Class ;
+    rdfs:label "Structure of galea aponeurotica" ;
+    rdfs:subClassOf ex:Epicranium_structure .
+
+ex:Structure_of_greater_auricular_nerve_posterior_branch a owl:Class ;
+    rdfs:label "Structure of greater auricular nerve posterior branch" ;
+    rdfs:subClassOf ex:Nervous_structure_of_head .
+
+ex:Structure_of_greater_superficial_petrosal_nerve a owl:Class ;
+    rdfs:label "Structure of greater superficial petrosal nerve" ;
+    rdfs:subClassOf ex:Nervous_structure_of_head .
+
+ex:Structure_of_half_of_head_lateral_to_midsagittal_plane a owl:Class ;
+    rdfs:label "Structure of half of head lateral to midsagittal plane" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Structure_of_interstitial_tissue_of_eyeball a owl:Class ;
+    rdfs:label "Structure of interstitial tissue of eyeball" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_lamina_episcleralis a owl:Class ;
+    rdfs:label "Structure of lamina episcleralis" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_lamina_fusca_of_sclera a owl:Class ;
+    rdfs:label "Structure of lamina fusca of sclera" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_lateral_glossoepiglottic_fold a owl:Class ;
+    rdfs:label "Structure of lateral glossoepiglottic fold" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Structure_of_lymph_node_of_head a owl:Class ;
+    rdfs:label "Structure of lymph node of head" ;
+    rdfs:subClassOf ex:Structure_of_lymphatic_system_of_head .
+
+ex:Structure_of_lymphatic_vessel_of_head a owl:Class ;
+    rdfs:label "Structure of lymphatic vessel of head" ;
+    rdfs:subClassOf ex:Structure_of_lymphatic_system_of_head .
+
+ex:Structure_of_middle_glossoepiglottic_fold a owl:Class ;
+    rdfs:label "Structure of middle glossoepiglottic fold" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Structure_of_mucous_membrane_of_Eustachian_tube a owl:Class ;
+    rdfs:label "Structure of mucous membrane of Eustachian tube" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_mucous_membrane_of_adenoid a owl:Class ;
+    rdfs:label "Structure of mucous membrane of adenoid" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_mucous_membrane_of_nasal_cavity_andor_nasal_sinus a owl:Class ;
+    rdfs:label "Structure of mucous membrane of nasal cavity and/or nasal sinus" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_ocular_blood_vessel a owl:Class ;
+    rdfs:label "Structure of ocular blood vessel" ;
+    rdfs:subClassOf ex:Vascular_structure_of_head .
+
+ex:Structure_of_oral_portion_of_nasopharynx a owl:Class ;
+    rdfs:label "Structure of oral portion of nasopharynx" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Structure_of_oropharyngeal_cavity a owl:Class ;
+    rdfs:label "Structure of oropharyngeal cavity" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Structure_of_pharyngeal_bursa a owl:Class ;
+    rdfs:label "Structure of pharyngeal bursa" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_pharyngeal_lymphoid_ring a owl:Class ;
+    rdfs:label "Structure of pharyngeal lymphoid ring" ;
+    rdfs:subClassOf ex:Structure_of_lymphatic_system_of_head .
+
+ex:Structure_of_postsphenoidal_bone a owl:Class ;
+    rdfs:label "Structure of postsphenoidal bone" ;
+    rdfs:subClassOf ex:Structure_of_fetal_bone_of_head .
+
+ex:Structure_of_premaxillary_bone a owl:Class ;
+    rdfs:label "Structure of premaxillary bone" ;
+    rdfs:subClassOf ex:Structure_of_fetal_bone_of_head .
+
+ex:Structure_of_presphenoidal_bone a owl:Class ;
+    rdfs:label "Structure of presphenoidal bone" ;
+    rdfs:subClassOf ex:Structure_of_fetal_bone_of_head .
+
+ex:Structure_of_pterygomandibular_raphe a owl:Class ;
+    rdfs:label "Structure of pterygomandibular raphe" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Structure_of_retromaxillary_region a owl:Class ;
+    rdfs:label "Structure of retromaxillary region" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Structure_of_sinus_venosus_of_sclera a owl:Class ;
+    rdfs:label "Structure of sinus venosus of sclera" ;
+    rdfs:subClassOf ex:Vascular_structure_of_head .
+
+ex:Structure_of_skin_andor_subcutaneous_tissue_of_external_ear a owl:Class ;
+    rdfs:label "Structure of skin and/or subcutaneous tissue of external ear" ;
+    rdfs:subClassOf ex:Skin_andor_subcutaneous_tissue_structure_of_head .
+
+ex:Structure_of_soft_tissue_of_external_ear a owl:Class ;
+    rdfs:label "Structure of soft tissue of external ear" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_soft_tissue_of_middle_ear a owl:Class ;
+    rdfs:label "Structure of soft tissue of middle ear" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_soft_tissue_of_nasal_cavity a owl:Class ;
+    rdfs:label "Structure of soft tissue of nasal cavity" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_soft_tissue_of_nasal_sinus a owl:Class ;
+    rdfs:label "Structure of soft tissue of nasal sinus" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_soft_tissue_of_parotid_gland a owl:Class ;
+    rdfs:label "Structure of soft tissue of parotid gland" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_soft_tissue_of_pterygopalatine_area a owl:Class ;
+    rdfs:label "Structure of soft tissue of pterygopalatine area" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_soft_tissues_of_face a owl:Class ;
+    rdfs:label "Structure of soft tissues of face" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_soft_tissues_of_orbit a owl:Class ;
+    rdfs:label "Structure of soft tissues of orbit" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Structure_of_subpial_space_of_brain a owl:Class ;
+    rdfs:label "Structure of subpial space of brain" ;
+    rdfs:subClassOf ex:Intracranial_structure .
+
+ex:Structure_of_subregion_of_scalp a owl:Class ;
+    rdfs:label "Structure of subregion of scalp" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Structure_of_suprahyoid_region a owl:Class ;
+    rdfs:label "Structure of suprahyoid region" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Structure_of_supraoccipital_bone a owl:Class ;
+    rdfs:label "Structure of supraoccipital bone" ;
+    rdfs:subClassOf ex:Structure_of_fetal_bone_of_head .
+
+ex:Structure_of_tympanic_anulus a owl:Class ;
+    rdfs:label "Structure of tympanic anulus" ;
+    rdfs:subClassOf ex:Structure_of_fetal_bone_of_head .
+
+ex:Structure_of_vagus_nerve_auricular_branch a owl:Class ;
+    rdfs:label "Structure of vagus nerve auricular branch" ;
+    rdfs:subClassOf ex:Nervous_structure_of_head .
+
+ex:Structure_of_vallecula_of_epiglottis a owl:Class ;
+    rdfs:label "Structure of vallecula of epiglottis" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Structure_of_vein_of_head a owl:Class ;
+    rdfs:label "Structure of vein of head" ;
+    rdfs:subClassOf ex:Vascular_structure_of_head .
+
+ex:Subcutaneous_tissue_structure_of_head a owl:Class ;
+    rdfs:label "Subcutaneous tissue structure of head" ;
+    rdfs:subClassOf ex:Skin_andor_subcutaneous_tissue_structure_of_head .
+
+ex:Subgaleal_area a owl:Class ;
+    rdfs:label "Subgaleal area" ;
+    rdfs:subClassOf ex:Epicranium_structure .
+
+ex:Submucosa_of_oropharynx a owl:Class ;
+    rdfs:label "Submucosa of oropharynx" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Subpericranial_space a owl:Class ;
+    rdfs:label "Subpericranial space" ;
+    rdfs:subClassOf ex:Epicranium_structure .
+
+ex:Surface_region_of_head a owl:Class ;
+    rdfs:label "Surface region of head" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Tendon_of_head a owl:Class ;
+    rdfs:label "Tendon of head" ;
+    rdfs:subClassOf ex:Musculoskeletal_structure_of_head .
+
+ex:Tympanic_mucosa_structure a owl:Class ;
+    rdfs:label "Tympanic mucosa structure" ;
+    rdfs:subClassOf ex:Structure_of_soft_tissues_of_head .
+
+ex:Vascular_structure_of_face a owl:Class ;
+    rdfs:label "Vascular structure of face" ;
+    rdfs:subClassOf ex:Vascular_structure_of_head .
+
+ex:Vertex_structure a owl:Class ;
+    rdfs:label "Vertex structure" ;
+    rdfs:subClassOf ex:Structure_of_subregion_of_head .
+
+ex:Wall_of_oropharynx a owl:Class ;
+    rdfs:label "Wall of oropharynx" ;
+    rdfs:subClassOf ex:Oropharyngeal_structure .
+
+ex:Structure_of_blood_vessel_of_head_of_fetus a owl:Class ;
+    rdfs:label "Structure of blood vessel of head of fetus" ;
+    rdfs:subClassOf ex:Fetal_head_structure,
+        ex:Vascular_structure_of_head .
+
+ex:Structure_of_fetal_bregma a owl:Class ;
+    rdfs:label "Structure of fetal bregma" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Structure_of_fetal_brow a owl:Class ;
+    rdfs:label "Structure of fetal brow" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Structure_of_fetal_cephalic_prominence a owl:Class ;
+    rdfs:label "Structure of fetal cephalic prominence" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Structure_of_fetal_chondrocranium a owl:Class ;
+    rdfs:label "Structure of fetal chondrocranium" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Structure_of_fetal_cranial_vault a owl:Class ;
+    rdfs:label "Structure of fetal cranial vault" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Structure_of_fetal_lip a owl:Class ;
+    rdfs:label "Structure of fetal lip" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Structure_of_fetal_occiput a owl:Class ;
+    rdfs:label "Structure of fetal occiput" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Structure_of_fetal_parietal_boss a owl:Class ;
+    rdfs:label "Structure of fetal parietal boss" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Structure_of_fetal_vertex a owl:Class ;
+    rdfs:label "Structure of fetal vertex" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Structure_of_vomeropremaxillary_suture a owl:Class ;
+    rdfs:label "Structure of vomero-premaxillary suture" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Structure_of_fetal_brain_cerebrospinal_fluid_pathway a owl:Class ;
+    rdfs:label "Structure of fetal brain cerebrospinal fluid pathway" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Head_structure a owl:Class ;
+    rdfs:label "Head structure" .
+
+ex:Structure_of_lymphatic_system_of_head a owl:Class ;
+    rdfs:label "Structure of lymphatic system of head" ;
+    rdfs:subClassOf ex:Head_part .
+
+ex:Epicranium_structure a owl:Class ;
+    rdfs:label "Epicranium structure" ;
+    rdfs:subClassOf ex:Head_part .
+
+ex:Skin_andor_subcutaneous_tissue_structure_of_head a owl:Class ;
+    rdfs:label "Skin and/or subcutaneous tissue structure of head" ;
+    rdfs:subClassOf ex:Head_part .
+
+ex:Nervous_structure_of_head a owl:Class ;
+    rdfs:label "Nervous structure of head" ;
+    rdfs:subClassOf ex:Head_part .
+
+ex:Structure_of_fetal_bone_of_head a owl:Class ;
+    rdfs:label "Structure of fetal bone of head" ;
+    rdfs:subClassOf ex:Fetal_head_structure .
+
+ex:Intracranial_structure a owl:Class ;
+    rdfs:label "Intracranial structure" ;
+    rdfs:subClassOf ex:Head_part .
+
+ex:Head_part a owl:Class ;
+    rdfs:label "Head part" ;
+    rdfs:subClassOf ex:Head_structure .
+
+ex:Vascular_structure_of_head a owl:Class ;
+    rdfs:label "Vascular structure of head" ;
+    rdfs:subClassOf ex:Head_part .
+
+ex:Fetal_head_structure a owl:Class ;
+    rdfs:label "Fetal head structure" ;
+    rdfs:subClassOf ex:Head_structure .
+
+ex:Structure_of_subregion_of_head a owl:Class ;
+    rdfs:label "Structure of subregion of head" ;
+    rdfs:subClassOf ex:Head_part .
+
+ex:Oropharyngeal_structure a owl:Class ;
+    rdfs:label "Oropharyngeal structure" ;
+    rdfs:subClassOf ex:Head_part .
+
+ex:Musculoskeletal_structure_of_head a owl:Class ;
+    rdfs:label "Musculoskeletal structure of head" ;
+    rdfs:subClassOf ex:Head_part .
+
+ex:Structure_of_soft_tissues_of_head a owl:Class ;
+    rdfs:label "Structure of soft tissues of head" ;
+    rdfs:subClassOf ex:Head_part .
+

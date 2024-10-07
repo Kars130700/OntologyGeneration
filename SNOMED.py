@@ -11,7 +11,7 @@ import networkx as nx
 from rdflib import Graph, Namespace, URIRef, Literal, RDF, RDFS, OWL
 import regex as re
 from visualizeOwls import visualize_owl
-from helperFunctions import getChildrenById, getSnomedConceptId
+from helperFunctions import getChildrenById, getSnomedConceptId, getParentsById
 # Note to self: maybe treat like a shortest route algorithm?
 
 baseUrl = 'https://browser.ihtsdotools.org/snowstorm/snomed-ct'
@@ -28,7 +28,7 @@ user_agent = 'tienvoortheorie@gmail.com'
 def buildOntology(root_concept: str, tree: list, depth: int, ex, g):
     """
     This method is a recursive method generating an ontology. It explores all the children and generates an OWL ontology from this.
-    
+
     root_concept is the first concept that starts the generation
     tree is the generated concept tree up until now
     depth is the maximum depth of the tree
@@ -36,17 +36,19 @@ def buildOntology(root_concept: str, tree: list, depth: int, ex, g):
     g is the graph 
     """
     # TODO: work with ID
+    # TODO: implement shortest path between concept 1 (Head) and concept 2 (Ear)
+    # TODO: why does it not work for the concept head? - because it worked with "Entire head (body structure)" - we should use head structure
     conceptId = getSnomedConceptId(root_concept) 
     if not conceptId:
         print(f"Concept '{root_concept}' not found.")
         return
     if depth == 0:
-        g.serialize(destination='generalized_ontology.ttl', format='turtle')
+        g.serialize(destination='head_ontology.ttl', format='turtle')
         print("OWL ontology created successfully!")
         return tree
     
     # Get the children of the current concept
-    new_tree = getChildrenById(conceptId=conceptId)
+    new_tree = getParentsById(conceptId=conceptId)
     if new_tree:
         # Add the new_tree to the main tree
         tree.extend(new_tree)
@@ -75,11 +77,12 @@ def sanitize_uri(name):
     return sanitized_name
 
 def buildOWL(concept):
-    ex = Namespace(f"http://example.org/{concept}#")
+    conc = sanitize_uri(concept)
+    ex = Namespace(f"http://example.org/{conc}#")
     g = Graph()
     # Ontology Declaration
     g.bind("ex", ex)  # Bind the custom namespace for easier access
-    g.add((URIRef(f"http://example.org/{concept}"), RDF.type, OWL.Ontology))
+    g.add((URIRef(f"http://example.org/{conc}"), RDF.type, OWL.Ontology))
 
     main_class_name = sanitize_uri(concept)
     main_class = URIRef(ex[main_class_name])
@@ -87,5 +90,13 @@ def buildOWL(concept):
     g.add((main_class, RDFS.label, Literal(concept)))
     print(buildOntology(concept, [], 3, ex, g))
 
+dictionary = {
+    'ear':['ear', 'ear structure'],
+    'head': ['head', 'head structure'], 
+    'External Auditory Canal': ['External Auditory Canal'],
+    'Eardrum': ['eardrum']
+}
 buildOWL("ear")
-visualize_owl(file_name = "generalized_ontology.ttl")
+
+#visualize_owl(file_name = "generalized_ontology.ttl")
+#visualize_owl(file_name = "otitis_externa_ontology.ttl")
