@@ -6,9 +6,13 @@
 otex:138875005 a owl:Class ;
     rdfs:label "SNOMED CT Concept" .
 
+otex:116154003 a owl:Class ;
+    rdfs:label "Patient" ;
+    rdfs:subClassOf otex:138875005 .
+
 otex:123037004 a owl:Class ;
     rdfs:label "Body structure" ;
-    rdfs:subClassOf otex:138875005 .
+    rdfs:subClassOf otex:138875005, otex:116154003 .
 
 otex:71388002 a owl:Class ;
     rdfs:label "Procedure" ;
@@ -25,7 +29,8 @@ otex:64572001 a owl:Class ;
 otex:3135009 a owl:Class ;
     rdfs:label "Otitis externa" ;
     rdfs:subClassOf otex:64572001 ;
-    otex:hasFindingSite otex:84301002 .
+    otex:hasFindingSite otex:84301002 ;
+    rdfs:comment "Ooronsteking" .
 
 otex:84301002 a owl:Class ;
     rdfs:label "External auditory canal structure" ;

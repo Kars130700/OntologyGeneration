@@ -96,7 +96,7 @@ dictionary = {
     'External Auditory Canal': ['External Auditory Canal'],
     'Eardrum': ['eardrum']
 }
-buildOWL("ear")
+#buildOWL("ear")
 
 #visualize_owl(file_name = "generalized_ontology.ttl")
 #visualize_owl(file_name = "otitis_externa_ontology.ttl")
