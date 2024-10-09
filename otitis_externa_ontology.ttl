@@ -58,7 +58,6 @@ ex:EarDrum a owl:Class ;
         owl:someValuesFrom ex:Ear
     ] .
 
-
 ex:ObservationInstance a ex:Observation ;
     ex:hasSwelling "true" ;        
     ex:hasColor "red" .    

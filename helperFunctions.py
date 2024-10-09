@@ -29,7 +29,7 @@ def getConceptById(id):
     response = urlopen_with_header(url).read()
     data = json.loads(response.decode('utf-8'))
 
-    print (data['fsn']['term'])
+    return data['fsn']['term']
 
 #Prints description by id
 def getDescriptionById(id):
@@ -75,15 +75,20 @@ def getSnomedCode(searchTerm):
         print("{} : {}".format(term['term'], term['concept']['conceptId']))
 
 # Get parents of a concept
-def getParentsById(conceptId, limit=8):
+def getParentsById(conceptId, search_term, limit=8):
     url = f"{baseUrl}/browser/{edition}/{version}/concepts/{conceptId}/parents?offset=0&limit={limit}"
+    print(url)
     response = urlopen_with_header(url).read()
     data = json.loads(response.decode('utf-8'))
 
     parents = []
-    print(data)
-    # for item in data['items']:
-    #     parents.append({'id': item['conceptId'], 'term': item['fsn']['term']})
+    for parent in data:
+        Id = parent.get("conceptId")
+        fsn = parent.get("fsn")
+        if True in [word in fsn['term'] for word in search_term.split(" ")]:
+            return True
+        print(fsn)
+        parents.append(Id)
     
     return parents
 
