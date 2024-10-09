@@ -147,3 +147,6 @@ buildOWL(dictionary, "Otitis Externa")
 #8: titel richtlijn richtlijn toevoegen en linken aan symptomen + patient
 #visualize_owl(file_name = "generalized_ontology.ttl")
 #visualize_owl(file_name = "otitis_externa_ontology.ttl")
+# visualize_owl(file_name = "generalized_ontology.ttl")
+visualize_owl(file_name = "otitis_ontology.ttl")
+
