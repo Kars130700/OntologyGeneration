@@ -61,16 +61,17 @@ def BFS_ontology(graph, start, search_term):
 
     while len(queue) > 0:
         current = queue.pop(0)
-        parents = getParentsById(current, search_term)
-        if parents == True:
-            print(f"Start word with ID '{start}' has a partOf relationship with {search_term}")
+        parents = getParentsById(current[0], search_term)
+        print(parents)
+        if parents[0] == True:
+            print(f"Start word with ID '{start[1]}' has a partOf relationship with {parents[1]}")
             queue = []
             break
         for parent in parents:
             if parent not in visited:
                 queue.append(parent)
                 visited.append(parent)
-                print(visited)
+
 
 def add_OWL_class(conc, g, ex, main_class):
     concept = sanitize_uri(conc)
@@ -105,11 +106,15 @@ def buildOWL(input_dict, guideline_title, debug = True):
         identify_root_IDs(input_dict)
     else: 
         input_dict = {'ear': ['117590005', 'Ear structure (body structure)', ['ear', 'ear structure']], 
-                      'head': ['302548004', 'Entire head (body structure)', ['head', 'head structure']]}
+                      'head': ['302548004', 'Entire head (body structure)', ['head', 'head structure']],
+                      'Eardrum': ['ID', "prefered label",['eardrum']]}
 
+    all_keys = list(input_dict.keys())
     for key, items in input_dict.items():
+        other_keys = [k for k in all_keys if k != key]
+
         #TODO: search term is alles behalve het element nu
-        BFS_ontology([],items[0], search_term = "head")
+        BFS_ontology([],(items[0], items[1]), search_term = other_keys)
         #buildOntology(items[0], [], 6, ex, g)
 
 def most_common(lst):
@@ -141,7 +146,7 @@ buildOWL(dictionary, "Otitis Externa")
 #3: ID identificeren (API call?) + dubbele verwijderen - voor alles ID toevoegen
 #4: DFS of !BFS! op parents - keyword matching: omhoog totdat we vinden dat head een parent is
 #5: relatie toekennen (isPartOf)
-#6: repeat
+#6: repeat - ook voor diagnoses?
 #7: patient relatie voor overblijven
 
 #8: titel richtlijn richtlijn toevoegen en linken aan symptomen + patient

@@ -77,7 +77,6 @@ def getSnomedCode(searchTerm):
 # Get parents of a concept
 def getParentsById(conceptId, search_term, limit=8):
     url = f"{baseUrl}/browser/{edition}/{version}/concepts/{conceptId}/parents?offset=0&limit={limit}"
-    print(url)
     response = urlopen_with_header(url).read()
     data = json.loads(response.decode('utf-8'))
 
@@ -85,10 +84,11 @@ def getParentsById(conceptId, search_term, limit=8):
     for parent in data:
         Id = parent.get("conceptId")
         fsn = parent.get("fsn")
-        if True in [word in fsn['term'] for word in search_term.split(" ")]:
-            return True
-        print(fsn)
-        parents.append(Id)
+        for word in search_term:
+            if word in fsn['term']:
+                # Return True and the matched word
+                return (True, word)
+        parents.append((Id,fsn["term"]))
     
     return parents
 
