@@ -4,115 +4,21 @@
 
 <http://example.org/Otitis_Externa> a owl:Ontology .
 
-ex:113343008 a owl:Class ;
-    rdfs:label "113343008" ;
-    rdfs:subClassOf ex:1 .
-
-ex:1157179001 a owl:Class ;
-    rdfs:label "1157179001" ;
-    rdfs:subClassOf ex:1 .
-
-ex:1193601008 a owl:Class ;
-    rdfs:label "1193601008" ;
-    rdfs:subClassOf ex:1 .
-
-ex:123037004 a owl:Class ;
-    rdfs:label "123037004" ;
-    rdfs:subClassOf ex:4 .
-
-ex:123848005 a owl:Class ;
-    rdfs:label "123848005" ;
-    rdfs:subClassOf ex:1 .
-
-ex:123850002 a owl:Class ;
-    rdfs:label "123850002" ;
-    rdfs:subClassOf ex:0 .
-
-ex:128262006 a owl:Class ;
-    rdfs:label "128262006" ;
-    rdfs:subClassOf ex:0 .
-
-ex:138875005 a owl:Class ;
-    rdfs:label "138875005" ;
-    rdfs:subClassOf ex:2 .
-
-ex:385383008 a owl:Class ;
-    rdfs:label "385383008" ;
-    rdfs:subClassOf ex:1 .
-
-ex:38866009 a owl:Class ;
-    rdfs:label "38866009" ;
-    rdfs:subClassOf ex:2 .
-
-ex:406121007 a owl:Class ;
-    rdfs:label "406121007" ;
-    rdfs:subClassOf ex:2 .
-
-ex:421371008 a owl:Class ;
-    rdfs:label "421371008" ;
-    rdfs:subClassOf ex:5 .
-
-ex:423857001 a owl:Class ;
-    rdfs:label "423857001" ;
-    rdfs:subClassOf ex:2 .
-
-ex:442083009 a owl:Class ;
-    rdfs:label "442083009" ;
-    rdfs:subClassOf ex:1 .
-
-ex:450717007 a owl:Class ;
-    rdfs:label "450717007" ;
-    rdfs:subClassOf ex:1 .
-
-ex:52530000 a owl:Class ;
-    rdfs:label "52530000" ;
-    rdfs:subClassOf ex:2,
-        ex:8 .
-
-ex:57645008 a owl:Class ;
-    rdfs:label "57645008" ;
-    rdfs:subClassOf ex:1 .
-
-ex:61942001 a owl:Class ;
-    rdfs:label "61942001" ;
-    rdfs:subClassOf ex:1 .
-
-ex:69536005 a owl:Class ;
-    rdfs:label "69536005" ;
-    rdfs:subClassOf ex:0,
-        ex:2 .
-
-ex:70104002 a owl:Class ;
-    rdfs:label "70104002" ;
-    rdfs:subClassOf ex:7 .
-
-ex:714488006 a owl:Class ;
-    rdfs:label "714488006" ;
-    rdfs:subClassOf ex:1 .
-
-ex:774007 a owl:Class ;
-    rdfs:label "774007" ;
-    rdfs:subClassOf ex:8,
-        ex:9 .
-
-ex:91159003 a owl:Class ;
-    rdfs:label "91159003" ;
-    rdfs:subClassOf ex:2 .
-
-ex:91689009 a owl:Class ;
-    rdfs:label "91689009" ;
-    rdfs:subClassOf ex:1,
-        ex:7 .
-
-ex:91690000 a owl:Class ;
-    rdfs:label "91690000" ;
-    rdfs:subClassOf ex:2 .
-
-ex:91723000 a owl:Class ;
-    rdfs:label "91723000" ;
-    rdfs:subClassOf ex:1,
-        ex:2 .
+ex:42859004 a owl:Class ;
+    rdfs:label "Tympanic membrane structure (body structure)" ;
+    rdfs:subClassOf ex:117590005 .
 
 ex:Otitis_Externa a owl:Class ;
     rdfs:label "Otitis Externa" .
+
+ex:117590005 a owl:Class ;
+    rdfs:label "Ear structure (body structure)" ;
+    rdfs:subClassOf ex:69536005 .
+
+ex:123037004 a owl:Class ;
+    rdfs:label "Patient" .
+
+ex:69536005 a owl:Class ;
+    rdfs:label "Head structure (body structure)" ;
+    rdfs:subClassOf ex:123037004 .
 
