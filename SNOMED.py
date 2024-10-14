@@ -19,42 +19,6 @@ version = '2024-09-30'
 # For example: user_agent = 'example@example.com'
 user_agent = 'tienvoortheorie@gmail.com'
 
-
-
-def buildOntology(concept_list: str, tree: list, depth: int, ex, g):
-    """
-    This method is a recursive method generating an ontology. It explores all the children and generates an OWL ontology from this.
-
-    root_concept is the first concept that starts the generation
-    tree is the generated concept tree up until now
-    depth is the maximum depth of the tree
-    ex is the Namespace of the OWL graph
-    g is the graph 
-    """
-    # TODO: work with ID
-    # TODO: implement shortest path between concept 1 (Head) and concept 2 (Ear)
-    # TODO: why does it not work for the concept head? - because it worked with "Entire head (body structure)" - we should use head structure
-    if not concept_list:
-        print(f"Concept '{concept_list}' not found.")
-        return
-    if depth == 0:
-        g.serialize(destination='head_ontology.ttl', format='turtle')
-        print("OWL ontology created successfully!")
-        return tree
-    
-    # Get the parents of the current concept
-    new_tree = getParentsById(conceptId=concept_list)
-    if new_tree:
-        # Add the new_tree to the main tree
-        tree.extend(new_tree)
-        print(tree)
-        
-        # Recursively build for each child
-        for index in range(len(new_tree)):
-            g = add_OWL_class(new_tree[index], g, ex, concept_list[1])
-            buildOntology(new_tree[index], tree, depth - 1, ex, g)
-
-    return tree
 def BFS_ontology(graph, start, search_term):
     print(f"Starting BFS with {start[1]}")
     queue = [start]
@@ -65,7 +29,7 @@ def BFS_ontology(graph, start, search_term):
         current = queue.pop(0)
         parents = getParentsById(current[0], search_term)
         print(parents)
-        
+
         if len(parents) == 0:
             continue
         if parents[0] == True:
@@ -77,12 +41,12 @@ def BFS_ontology(graph, start, search_term):
             if parent not in visited:
                 queue.append(parent)
                 visited.append(parent)
-    
+
     if (parent_found):
-        return (parent_found[2], parent_found[1])
+        return (parent_found[1])
     print(f"No parent was found for start word with ID '{start[1]}', setting the parent to 'patient'")
     # Link top level concepts with the patient / body structure class
-    return ('123037004', 'patient')
+    return ('patient')
 
 
 def add_OWL_class(conc, g, ex, main_class):
@@ -117,23 +81,27 @@ def buildOWL(input_dict, guideline_title, debug = True):
     g.add((main_class, RDFS.label, Literal(guideline_title)))
     g.add((patient_class, RDF.type, OWL.Class))
     g.add((patient_class, RDFS.label, Literal(patient_class_name)))
-    
 
-    if not debug: 
+
+    if not debug:
         input_dict = identify_root_IDs(input_dict)
-    else: 
-        input_dict = {'ear': ['117590005', 'Ear structure (body structure)', ['ear', 'ear structure']], 
+    else:
+        input_dict = {'ear': ['117590005', 'Ear structure (body structure)', ['ear', 'ear structure']],
                       'head': ['69536005', 'Head structure (body structure)', ['head', 'head structure']],
                       'eardrum': ['42859004', "Tympanic membrane structure (body structure)", ['eardrum', 'tympanic membrane structure', 'tympanic membrane']]}
 
     all_keys = list(input_dict.keys())
     for key, items in input_dict.items():
         other_keys = [k for k in all_keys if k != key]
-        search_terms = list(map(lambda k: input_dict[k][0], other_keys))
+        search_terms = other_keys
 
         #TODO: search term is alles behalve het element nu
         parent = BFS_ontology([],(items[0], items[1]), search_term = search_terms)
-        g = add_OWL_class(items, g, ex, parent[0])
+        if not(parent == 'patient'):
+            parent_id = input_dict[parent][0]
+        else:
+            parent_id = '123037004'
+        g = add_OWL_class(items, g, ex, parent_id)
     g.serialize(destination='head_ontology.ttl', format='turtle')
 
 def most_common(lst):

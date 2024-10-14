@@ -84,14 +84,12 @@ def getParentsById(conceptId, search_term, limit=8):
     for parent in data:
         Id = parent.get("conceptId")
         fsn = parent.get("fsn")
+
         for word in search_term:
-            if word == Id:
-                # Return True, the preffered term and the matched ID
-                return (True, fsn['term'], Id)
-            # if word in fsn['term']:
-                # Return True, the matched term and its ID
-        parents.append((Id,fsn["term"]))
-    
+            if word in fsn['term']:
+                return (True, word, Id)
+        parents.append((Id, fsn["term"]))
+
     return parents
 
 # Get children of a concept
