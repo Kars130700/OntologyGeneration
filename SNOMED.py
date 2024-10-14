@@ -19,68 +19,44 @@ version = '2024-09-30'
 # For example: user_agent = 'example@example.com'
 user_agent = 'tienvoortheorie@gmail.com'
 
-
-
-def buildOntology(concept_list: str, tree: list, depth: int, ex, g):
-    """
-    This method is a recursive method generating an ontology. It explores all the children and generates an OWL ontology from this.
-
-    root_concept is the first concept that starts the generation
-    tree is the generated concept tree up until now
-    depth is the maximum depth of the tree
-    ex is the Namespace of the OWL graph
-    g is the graph 
-    """
-    # TODO: work with ID
-    # TODO: implement shortest path between concept 1 (Head) and concept 2 (Ear)
-    # TODO: why does it not work for the concept head? - because it worked with "Entire head (body structure)" - we should use head structure
-    if not concept_list:
-        print(f"Concept '{concept_list}' not found.")
-        return
-    if depth == 0:
-        g.serialize(destination='head_ontology.ttl', format='turtle')
-        print("OWL ontology created successfully!")
-        return tree
-    
-    # Get the parents of the current concept
-    new_tree = getParentsById(conceptId=concept_list)
-    if new_tree:
-        # Add the new_tree to the main tree
-        tree.extend(new_tree)
-        print(tree)
-        
-        # Recursively build for each child
-        for index in range(len(new_tree)):
-            g = add_OWL_class(new_tree[index], g, ex, concept_list[1])
-            buildOntology(new_tree[index], tree, depth - 1, ex, g)
-
-    return tree
 def BFS_ontology(graph, start, search_term):
+    print(f"Starting BFS with {start[1]}")
     queue = [start]
     visited = [start]
+    parent_found = ()
 
     while len(queue) > 0:
         current = queue.pop(0)
         parents = getParentsById(current[0], search_term)
         print(parents)
+
+        if len(parents) == 0:
+            continue
         if parents[0] == True:
-            print(f"Start word with ID '{start[1]}' has a partOf relationship with {parents[1]}")
+            print(f"Start word with ID '{start[1]}' has a partOf relationship with '{parents[1]}'")
             queue = []
+            parent_found = parents
             break
         for parent in parents:
             if parent not in visited:
                 queue.append(parent)
                 visited.append(parent)
 
+    if (parent_found):
+        return (parent_found[1])
+    print(f"No parent was found for start word with ID '{start[1]}', setting the parent to 'patient'")
+    # Link top level concepts with the patient / body structure class
+    return ('patient')
+
 
 def add_OWL_class(conc, g, ex, main_class):
-    concept = sanitize_uri(conc)
+    concept = sanitize_uri(conc[0])
     main_class = sanitize_uri(main_class)
     subclass = URIRef(ex[concept])
     main_class = URIRef(ex[main_class])
     g.add((subclass, RDF.type, OWL.Class))
     g.add((subclass, RDFS.subClassOf, main_class))
-    g.add((subclass, RDFS.label, Literal(conc)))
+    g.add((subclass, RDFS.label, Literal(conc[1])))
     return g
 
 def sanitize_uri(name):
@@ -99,23 +75,34 @@ def buildOWL(input_dict, guideline_title, debug = True):
 
     main_class_name = sanitize_uri(guideline_title)
     main_class = URIRef(ex[main_class_name])
+    patient_class_name = 'Patient'
+    patient_class = URIRef(ex['123037004'])
     g.add((main_class, RDF.type, OWL.Class))
     g.add((main_class, RDFS.label, Literal(guideline_title)))
+    g.add((patient_class, RDF.type, OWL.Class))
+    g.add((patient_class, RDFS.label, Literal(patient_class_name)))
 
-    if not debug: 
-        identify_root_IDs(input_dict)
-    else: 
-        input_dict = {'ear': ['117590005', 'Ear structure (body structure)', ['ear', 'ear structure']], 
-                      'head': ['302548004', 'Entire head (body structure)', ['head', 'head structure']],
-                      'Eardrum': ['ID', "prefered label",['eardrum']]}
+
+    if not debug:
+        input_dict = identify_root_IDs(input_dict)
+    else:
+        input_dict = {'ear': ['117590005', 'Ear structure (body structure)', ['ear', 'ear structure']],
+                      'head': ['69536005', 'Head structure (body structure)', ['head', 'head structure']],
+                      'eardrum': ['42859004', "Tympanic membrane structure (body structure)", ['eardrum', 'tympanic membrane structure', 'tympanic membrane']]}
 
     all_keys = list(input_dict.keys())
     for key, items in input_dict.items():
         other_keys = [k for k in all_keys if k != key]
+        search_terms = other_keys
 
         #TODO: search term is alles behalve het element nu
-        BFS_ontology([],(items[0], items[1]), search_term = other_keys)
-        #buildOntology(items[0], [], 6, ex, g)
+        parent = BFS_ontology([],(items[0], items[1]), search_term = search_terms)
+        if not(parent == 'patient'):
+            parent_id = input_dict[parent][0]
+        else:
+            parent_id = '123037004'
+        g = add_OWL_class(items, g, ex, parent_id)
+    g.serialize(destination='head_ontology.ttl', format='turtle')
 
 def most_common(lst):
     return max(set(lst), key=lst.count)
@@ -150,8 +137,5 @@ buildOWL(dictionary, "Otitis Externa")
 #7: patient relatie voor overblijven
 
 #8: titel richtlijn richtlijn toevoegen en linken aan symptomen + patient
-#visualize_owl(file_name = "generalized_ontology.ttl")
-#visualize_owl(file_name = "otitis_externa_ontology.ttl")
-# visualize_owl(file_name = "generalized_ontology.ttl")
-visualize_owl(file_name = "otitis_ontology.ttl")
+# visualize_owl(file_name = "head_ontology.ttl")
 
