@@ -10,6 +10,8 @@
 *.userosscache
 *.sln.docstates
 SnomedCT_InternationalRF2_PRODUCTION_20210131T120000Z
+SnomedNL
+SnomedNL.zip
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

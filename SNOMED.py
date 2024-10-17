@@ -139,3 +139,9 @@ buildOWL(dictionary, "Otitis Externa")
 #8: titel richtlijn richtlijn toevoegen en linken aan symptomen + patient
 # visualize_owl(file_name = "head_ontology.ttl")
 
+input_dictionary = {
+    'lichaamsdelen': {'oor': [None, None, ['gehoorgang', 'trommelvlies', 'oorschelp']], 'gehoorgang': [None, None, ['auris externus']], 'trommelvlies': [None, None, ['membrana tympani', 'tympanum']], 'oorschelp': [None, None, ['pinna']]},
+    'symptomen' : {'oorpijn': [None, None, ['auralgia', 'pijn in het oor']], 'jeuk in het oor': [None, None, ['pruritus auris']], 'vocht uit het oor': [None, None, ['otorroe']], 'gehoorverlies': [None, None, ['auditory loss']], 'zwelling': [None, None, ['oedeem']], 'roodheid': [None, None, ['erytheem']], 'schilfering': [None, None, ['desquamatie']], 'pijn bij tractie aan de oorschelp': [None, None, ['pijn bij trekken aan het oor']]},
+    'diagnoses': {'otitis externa': [None, None, ['uitwendige oorontsteking']], 'otitis media acuta': [None, None, ['acute middenoorontsteking']], 'furunkel': [None, None, ['boil']], 'herpes zoster oticus': [None, None, ['zoster oticus']], 'erysipelas': [None, None, ['rozevonk']], 'corpus alienum': [None, None, ['vreemd voorwerp']], 'cholesteatoom': [None, None, ['cholesteatoma']], 'gehoorgangcarcinoom': [None, None, ['oor carcinoom']]},
+    'behandelingen': {'zure oordruppels': [None, None, ['acida oordruppels']], 'hydrocortison': [None, None, ['hydrocortisone']], 'triamcinolonacetonide': [None, None, ['triamcinolone acetonide']], 'flucloxacilline': [None, None, ['flucloxacillin']], 'occlusietherapie': [None, None, ['tamponneren']], 'uitspuiten van de gehoorgang': [None, None, ['cleaning of the ear canal']]}
+}

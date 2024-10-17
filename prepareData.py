@@ -118,4 +118,11 @@ def extract_python_dictionaries(text):
     return extracted_dictionaries
 dictionary = extract_python_dictionaries(content)
 
-print(dictionary["lichaamsdelen"])
+print("lichaamsdelen:", dictionary["lichaamsdelen"])
+print()
+print("symptomen", dictionary["symptomen"])
+print()
+print("diagnoses", dictionary["diagnoses"])
+print()
+print("behandelingen", dictionary["behandelingen"])
+print()
