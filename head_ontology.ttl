@@ -5,20 +5,20 @@
 <http://example.org/Otitis_Externa> a owl:Ontology .
 
 ex:42859004 a owl:Class ;
-    rdfs:label "Tympanic membrane structure (body structure)" ;
+    rdfs:label "structuur van membrana tympanica (lichaamsstructuur)" ;
     rdfs:subClassOf ex:117590005 .
 
 ex:Otitis_Externa a owl:Class ;
     rdfs:label "Otitis Externa" .
 
 ex:117590005 a owl:Class ;
-    rdfs:label "Ear structure (body structure)" ;
+    rdfs:label "structuur van oor (lichaamsstructuur)" ;
     rdfs:subClassOf ex:69536005 .
 
 ex:123037004 a owl:Class ;
     rdfs:label "Patient" .
 
 ex:69536005 a owl:Class ;
-    rdfs:label "Head structure (body structure)" ;
+    rdfs:label "structuur van hoofd (lichaamsstructuur)" ;
     rdfs:subClassOf ex:123037004 .
 
