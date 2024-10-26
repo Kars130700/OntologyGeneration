@@ -76,11 +76,21 @@ cursor.execute("CREATE FULLTEXT INDEX description_term ON description(term)")
 cursor.execute("CREATE INDEX description_concept ON description(conceptId)")
 cursor.execute("CREATE INDEX relationship_source ON relationship(sourceId, typeID, destinationID)")
 
+
+# C:/Users/ravan/Documents/GitHub
 # Import files
+## Add following line to "C:\ProgramData\MySQL\MySQL Server 9.1\my.ini", under [mysql], [mysqld] and [client]:
+### local-infile=1
+## Restart MySQL from Services
+
 ## Run following commands in Mysql clc, always use '/' in paths and fill in full path
-# Concepts: 
+# Allow loading files:
+## SET GLOBAL local_infile=1;
+## GRANT FILE ON *.* TO 'root'@'localhost';
+## \u snomedct
+# Concepts:
 ## LOAD DATA LOCAL INFILE "[path]/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Concept_Snapshot_NL1000146_20240930.txt" INTO TABLE concept LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`definitionStatusId`);
-# Descriptions: 
+# Descriptions:
 ## LOAD DATA LOCAL INFILE "[path]/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Description_Snapshot-nl_NL1000146_20240930.txt" INTO TABLE description LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`conceptId`,`languageCode`,`typeId`,`term`,`caseSignificanceId`);
 # Relationships:
 ## LOAD DATA LOCAL INFILE "[path]/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Relationship_Snapshot_NL1000146_20240930.txt" INTO TABLE relationship LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`sourceId`,`destinationId`,`relationshipGroup`,`typeId`,`characteristicTypeId`,`modifierId`);
