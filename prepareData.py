@@ -61,7 +61,11 @@ waarin de dictionaries de volgende formattering hebben:
 lichaamsdelen = {
     'key':[None, None, [synoniemen key]], 
 }
-Waarin 'key' het lichaamsdeel is en [synoniemen key] een lijst van synoniemen van het lichaamsdeel is. Uiteindelijk is het resultaat dus 4 dictionaries: één dict genaamd lichaamsdelen, één genaamd symptomen, één genaamd diagnoses en één genaamd behandelingen. Verzeker jezelf er van dat alle genoemde keys in de lichaamsdelen dictionary echt lichaamsdelen zijn, dus onderdelen van de menselijke anatomie
+Waarin 'key' het lichaamsdeel is en [synoniemen key] een lijst van synoniemen van het lichaamsdeel is. Uiteindelijk is het resultaat dus 4 dictionaries: één dict genaamd lichaamsdelen, één genaamd symptomen, één genaamd diagnoses en één genaamd behandelingen. 
+Verzeker jezelf er van dat alle genoemde keys in de lichaamsdelen dictionary echt lichaamsdelen zijn, dus onderdelen van de menselijke anatomie. 
+Zorg er ook voor dat de synoniemen daadwerkelijk synoniemen zijn. Ze moeten dus echt het woord kunnen vervangen en dezelfde (biologische)
+functie hebben.
+Geef bij de synoniemen van symptomen meerdere samenstellingen. Pijn aan knie heeft dus als synoniemen 'pijnlijke knie', 'kniepijn', etc
 """
 
 import os
@@ -75,16 +79,15 @@ client = OpenAI(
     api_key = os.getenv('SP_CHATGPT_API_KEY'),
 )
 
-# completion = client.chat.completions.create(
-#     model="gpt-4o-mini",
-#     messages=[
-#         {"role": "system", "content": "You are a helpful assistant."},
-#         {
-#             "role": "user",
-#             "content": text + prompt_3
-#         }
-#     ]
-# )
+completion = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {
+            "role": "user",
+            "content": text + prompt_3
+        }
+    ]
+)
 
 #print(completion.choices[0].message)
 content="""Hieronder zijn de gevraagde Python dictionaries gemaakt op basis van de informatie in de tekst.\n\n
@@ -126,3 +129,4 @@ print("diagnoses", dictionary["diagnoses"])
 print()
 print("behandelingen", dictionary["behandelingen"])
 print()
+print(dictionary)

@@ -4,21 +4,83 @@
 
 <http://example.org/Otitis_Externa> a owl:Ontology .
 
+ex:113327001 a owl:Class ;
+    rdfs:label "structuur van auricula (lichaamsstructuur)" ;
+    rdfs:subClassOf ex:117590005 .
+
 ex:42859004 a owl:Class ;
     rdfs:label "structuur van membrana tympanica (lichaamsstructuur)" ;
+    rdfs:subClassOf ex:117590005 .
+
+ex:84301002 a owl:Class ;
+    rdfs:label "structuur van meatus acusticus externus (lichaamsstructuur)" ;
     rdfs:subClassOf ex:117590005 .
 
 ex:Otitis_Externa a owl:Class ;
     rdfs:label "Otitis Externa" .
 
-ex:117590005 a owl:Class ;
-    rdfs:label "structuur van oor (lichaamsstructuur)" ;
-    rdfs:subClassOf ex:69536005 .
+ex:hasRelation a owl:ObjectProperty ;
+    rdfs:label "has Finding Site" ;
+    rdfs:domain ex:301354004 ;
+    rdfs:range ex:117590005 .
+
+ex:hasRelation2 a owl:ObjectProperty ;
+    rdfs:label "has Finding Site" ;
+    rdfs:domain ex:229643008 ;
+    rdfs:range ex:123037004 .
+
+ex:hasRelation3 a owl:ObjectProperty ;
+    rdfs:label "has Finding Site" ;
+    rdfs:domain ex:65124004 ;
+    rdfs:range ex:123037004 .
+
+ex:hasRelation4 a owl:ObjectProperty ;
+    rdfs:label "has Finding Site" ;
+    rdfs:domain ex:703630003 ;
+    rdfs:range ex:81745001 .
+
+ex:hasRelation5 a owl:ObjectProperty ;
+    rdfs:label "has Finding Site" ;
+    rdfs:domain ex:271761007 ;
+    rdfs:range ex:39937001 .
+
+ex:hasRelation6 a owl:ObjectProperty ;
+    rdfs:label "has Finding Site" ;
+    rdfs:domain ex:71303008 ;
+    rdfs:range ex:89545001 .
+
+ex:229643008 a owl:Class ;
+    rdfs:label "stem bij doofheid (bevinding)" ;
+    rdfs:subClassOf ex:None .
+
+ex:271761007 a owl:Class ;
+    rdfs:label "schilfering van huid (bevinding)" ;
+    rdfs:subClassOf ex:39937001 .
+
+ex:301354004 a owl:Class ;
+    rdfs:label "pijn aan oor (bevinding)" ;
+    rdfs:subClassOf ex:117590005 .
+
+ex:65124004 a owl:Class ;
+    rdfs:label "zwelling (bevinding)" ;
+    rdfs:subClassOf ex:None .
+
+ex:703630003 a owl:Class ;
+    rdfs:label "rood oog (bevinding)" ;
+    rdfs:subClassOf ex:81745001 .
+
+ex:71303008 a owl:Class ;
+    rdfs:label "atypische aangezichtspijn (bevinding)" ;
+    rdfs:subClassOf ex:89545001 .
 
 ex:123037004 a owl:Class ;
     rdfs:label "Patient" .
 
-ex:69536005 a owl:Class ;
-    rdfs:label "structuur van hoofd (lichaamsstructuur)" ;
+ex:None a owl:Class ;
+    rdfs:label "None" ;
+    rdfs:subClassOf ex:None .
+
+ex:117590005 a owl:Class ;
+    rdfs:label "structuur van oor (lichaamsstructuur)" ;
     rdfs:subClassOf ex:123037004 .
 

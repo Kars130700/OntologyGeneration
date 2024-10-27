@@ -12,10 +12,11 @@ snomedDB = mysql.connect(
     user=os.getenv("MYSQL_USERNAME"),
     password=os.getenv("MYSQL_PASSWORD")
 )
+print(snomedDB)
 cursor = snomedDB.cursor()
 cursor.execute("DROP DATABASE IF EXISTS snomedct")
 cursor.execute("CREATE DATABASE snomedct /*!40100 DEFAULT CHARACTER SET utf8mb4 */")
-
+print("ja")
 # Connect to specific database
 snomedDB = mysql.connect(
     host="localhost",
@@ -89,8 +90,34 @@ cursor.execute("CREATE INDEX relationship_source ON relationship(sourceId, typeI
 ## GRANT FILE ON *.* TO 'root'@'localhost';
 ## \u snomedct
 # Concepts:
-## LOAD DATA LOCAL INFILE "[path]/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Concept_Snapshot_NL1000146_20240930.txt" INTO TABLE concept LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`definitionStatusId`);
+##LOAD DATA LOCAL INFILE "C:\Users\karst\Documents\University\SP\Software Production - Ontology Generation\SnomedNL\SnomedCT_ManagedServiceNL_PRODUCTION_NL1000146_20240930T120000Z\Snapshot\Terminology\sct2_Concept_Snapshot_NL1000146_20240930.txt" INTO TABLE concept LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`definitionStatusId`);
 # Descriptions:
 ## LOAD DATA LOCAL INFILE "[path]/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Description_Snapshot-nl_NL1000146_20240930.txt" INTO TABLE description LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`conceptId`,`languageCode`,`typeId`,`term`,`caseSignificanceId`);
 # Relationships:
 ## LOAD DATA LOCAL INFILE "[path]/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Relationship_Snapshot_NL1000146_20240930.txt" INTO TABLE relationship LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`sourceId`,`destinationId`,`relationshipGroup`,`typeId`,`characteristicTypeId`,`modifierId`);
+
+
+#For Kars:
+# CMD
+# mysql -u root -p --local_infile=1
+# USE snomedct
+# 
+# LOAD DATA LOCAL INFILE "C:\\Users\\karst\\Documents\\University\\SP\\Software Production - Ontology Generation\\SnomedNL\\SnomedCT_ManagedServiceNL_PRODUCTION_NL1000146_20240930T120000Z\\Snapshot\\Terminology\\sct2_Concept_Snapshot_NL1000146_20240930.txt"
+# INTO TABLE concept
+# LINES TERMINATED BY '\r\n'
+# IGNORE 1 LINES
+# (`id`, `effectiveTime`, `active`, `moduleId`, `definitionStatusId`);
+#
+# LOAD DATA LOCAL INFILE "C:\\Users\\karst\\Documents\\University\\SP\\Software Production - Ontology Generation\\SnomedNL\\SnomedCT_ManagedServiceNL_PRODUCTION_NL1000146_20240930T120000Z\\Snapshot\\Terminology\\sct2_Description_Snapshot-nl_NL1000146_20240930.txt"
+# INTO TABLE description
+# LINES TERMINATED BY '\r\n'
+# IGNORE 1 LINES
+# (`id`, `effectiveTime`, `active`, `moduleId`, `conceptId`, `languageCode`, `typeId`, `term`, `caseSignificanceId`);
+#
+# LOAD DATA LOCAL INFILE "C:\\Users\\karst\\Documents\\University\\SP\\Software Production - Ontology Generation\\SnomedNL\\SnomedCT_ManagedServiceNL_PRODUCTION_NL1000146_20240930T120000Z\\Snapshot\\Terminology\\sct2_Relationship_Snapshot_NL1000146_20240930.txt"
+# INTO TABLE relationship
+# LINES TERMINATED BY '\r\n'
+# IGNORE 1 LINES
+# (`id`, `effectiveTime`, `active`, `moduleId`, `sourceId`, `destinationId`, `relationshipGroup`, `typeId`, `characteristicTypeId`, `modifierId`);
+
+

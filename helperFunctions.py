@@ -110,7 +110,10 @@ def getChildrenById(conceptId, limit=3, depth = 5):
 
 # Helper function to get a SNOMED concept by name and return the ID
 def getSnomedConceptId(searchTerm):
-    url = f"{baseUrl}/browser/{edition}/{version}/descriptions?term={quote(searchTerm)}&conceptActive=true&groupByConcept=false&searchMode=STANDARD&offset=0&limit=50"
+    #url = f"{baseUrl}/browser/{edition}/{version}/descriptions?term={quote(searchTerm)}&conceptActive=true&groupByConcept=false&searchMode=STANDARD&offset=0&limit=50"
+    url = (f"{baseUrl}/browser/{edition}/{version}/descriptions?"
+           f"term={quote(searchTerm)}&conceptActive=true&groupByConcept=false"
+           f"&searchMode=STANDARD&language=nl&offset=0&limit=50")
     response = urlopen_with_header(url).read()
     data = json.loads(response.decode('utf-8'))
 
@@ -119,3 +122,21 @@ def getSnomedConceptId(searchTerm):
             return term['concept']['conceptId']
 
     return None
+
+def getSnomedFindingId(searchTerm):
+    # Define the typeId for findings (replace with the correct one for your database)
+
+    url = (f"{baseUrl}/browser/{edition}/{version}/descriptions?"
+           f"term={quote(searchTerm)}&conceptActive=true&groupByConcept=false"
+           f"&searchMode=STANDARD&language=nl&offset=0&limit=50")
+    
+    response = urlopen_with_header(url).read()
+    data = json.loads(response.decode('utf-8'))
+
+    for term in data['items']:
+        # Check if the term matches and if it is of type finding
+        if ('(finding)' in term['concept']['fsn']['term'].strip(" ")):
+            return term['concept']['conceptId']
+
+    return None
+
