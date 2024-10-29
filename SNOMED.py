@@ -10,6 +10,9 @@ import regex as re
 from visualizeOwls import visualize_owl
 from helperFunctions import getSnomedConceptId, getParentsById, getConceptById, getSnomedFindingId
 from queryDatabase import querySnomedConceptId, queryParentsById, queryConceptById, queryFindingsFindingsiteById
+import nltk
+from nltk.corpus import stopwords
+nltk.download('stopwords')
 # Note to self: maybe treat like a shortest route algorithm?
 
 baseUrl = 'https://browser.ihtsdotools.org/snowstorm/snomed-ct'
@@ -86,13 +89,14 @@ def add_OWL_relation(source_concept, target_concept, g, ex, label, patient):
 
     return g
 
-def add_OWL_class(conc, g, ex, main_class):
+def add_OWL_class(conc, g, ex, main_class, finding = False):
     concept = sanitize_uri(conc[0])
     main_class = sanitize_uri(main_class)
     subclass = URIRef(ex[concept])
     main_class = URIRef(ex[main_class])
     g.add((subclass, RDF.type, OWL.Class))
-    g.add((subclass, RDFS.subClassOf, main_class))
+    if not finding:
+        g.add((subclass, RDFS.subClassOf, main_class))
     g.add((subclass, RDFS.label, Literal(conc[1])))
     return g
 
@@ -159,28 +163,46 @@ def buildOWL(input_dict, guideline_title, debug = False):
     all_keys = list(input_dict['lichaamsdelen'].keys())
     
     start = time.time()
-    for classes, el in input_dict.items():
-        if classes == 'lichaamsdelen':
-            for key, items in el.items():
-                other_keys = [k for k in all_keys if k != key]
-                search_terms = other_keys
+    symptoms_finding_sites = []
+    if 'symptomen' in input_dict:
+        el = input_dict['symptomen']
+        for key, items in el.items():
+            parent_id = getFindings(items)
+            symptoms_finding_sites.append(parent_id)
+            g = add_OWL_class(items, g, ex, parent_id, finding = True)
+            g = add_OWL_relation(items, parent_id, g, ex, "has Finding Site", 123037004)
+    print(symptoms_finding_sites)
+    input_dict = add_finding_sites_to_body(symptoms_finding_sites, input_dict)
+    print(input_dict)
+    if 'lichaamsdelen' in input_dict:
+        el = input_dict['lichaamsdelen']
+        for key, items in el.items():
+            other_keys = [k for k in all_keys if k != key]
+            search_terms = other_keys
 
-                #TODO: search term is alles behalve het element nu
-                parent = BFS_ontology([],(items[0], items[1]), search_term = search_terms)
-                if not(parent == 'patient'):
-                    parent_id = input_dict['lichaamsdelen'][parent][0]
-                else:
-                    parent_id = '123037004'
-                g = add_OWL_class(items, g, ex, parent_id)
-        elif classes == 'symptomen':
-            for key, items in el.items():
-                parent_id= getFindings(items)
-                g = add_OWL_class(items, g, ex, parent_id)
-                g = add_OWL_relation(items, parent_id, g, ex, "has Finding Site", 123037004)
+            #TODO: search term is alles behalve het element nu
+            parent = BFS_ontology([],(items[0], items[1]), search_term = search_terms)
+            if not(parent == 'patient'):
+                parent_id = input_dict['lichaamsdelen'][parent][0]
+            else:
+                parent_id = '123037004'
+            g = add_OWL_class(items, g, ex, parent_id)
+                
 
     end = time.time()
     print("BFS_ontology took", end - start, "seconds")
     g.serialize(destination='head_ontology.ttl', format='turtle')
+
+def add_finding_sites_to_body(symptoms_finding_sites, input_dict):
+    existing_ids = []
+    for value in input_dictionary['lichaamsdelen'].values():
+        existing_ids.append(value[0])
+    for ID in symptoms_finding_sites:
+        if str(ID) not in existing_ids and ID != None:
+            concept = queryConceptById(ID)
+            input_dict['lichaamsdelen'][concept] = [ID, concept, []]
+    return input_dict
+
 
 def getFindings(items):
     parent = None
@@ -201,6 +223,15 @@ def identify_root_IDs(input_dict: dict):
     # We loop through the synonyms, gather all IDs and check the one that is most occuring
     if version == 'db':
         for key, value in input_dict.items():
+            if key == 'symptomen':
+                for key2, value2 in value.items():
+                    print(key2)
+                    #try:
+                    value2 = init_most_cmmn_id(key2, value2, getSnomedFindingId, True)
+                    #except Exception as e:
+                        # print(value2[0])
+                        # print(f"While looking for finding {key2} an error occured: {e}")
+                    print(f"Keyword '{key2}' coupled to id {value2[0]}")
             if key == 'lichaamsdelen':
                 for key2, value2 in value.items():
                     print(key2) 
@@ -209,15 +240,6 @@ def identify_root_IDs(input_dict: dict):
                     except Exception as e:
                         print(value2[0])
                         print(f"While looking for word {key2} an error occured: {e}")
-                    print(f"Keyword '{key2}' coupled to id {value2[0]}")
-            elif key == 'symptomen':
-                for key2, value2 in value.items():
-                    print(key2)
-                    #try:
-                    value2 = init_most_cmmn_id(key2, value2, getSnomedFindingId)
-                    #except Exception as e:
-                        # print(value2[0])
-                        # print(f"While looking for finding {key2} an error occured: {e}")
                     print(f"Keyword '{key2}' coupled to id {value2[0]}")
     else:
         for key, value in input_dict.items():
@@ -236,13 +258,16 @@ def has_required_keys(data_dict):
     required_keys = {'lichaamsdelen', 'symptomen', 'diagnoses', 'behandelingen'}
     return required_keys.issubset(data_dict.keys())
 
-def init_most_cmmn_id(key2, value2, function):
+def init_most_cmmn_id(key2, value2, function, remove_stopwords = False):
     ID_set = []
+    if remove_stopwords:
+        key2, value2[2] = removal_of_stopwords(key2, value2)
     ID_key = function(key2)
     if ID_key != None:
         ID_set.append(function(key2)) 
     for synonym in value2[2]:
-        ID = function(synonym) 
+        print(synonym)
+        ID = function(synonym)
         if ID is not None:
             ID_set.append(ID)
     
@@ -255,6 +280,24 @@ def init_most_cmmn_id(key2, value2, function):
     
     return value2
 
+def removal_of_stopwords(key2, value2):
+    """
+    Removes stopwords to improve ability to retrieve values from SNOMED. 
+    Input:
+    {jeuk in het oor: [None, None, ['pruritus in het oor', 'jeukende gehoorgang']]}
+    Output:
+    {jeuk oor: [None, None, ['pruritus oor', 'jeukende gehoorgang']]}
+    """
+    stop_words = set(stopwords.words('dutch'))
+    key2 = [w for w in key2.split() if w.lower() not in stop_words]
+    key2 = " ".join(key2)
+    new_value = []
+    for synonym in value2[2]:
+        # Split each phrase into words, filter out stopwords, then join back into a string
+        filtered_words = [word for word in synonym.split() if word.lower() not in stop_words]
+        new_value.append(" ".join(filtered_words))
+    value2 = [w for w in value2[2] if not w.lower() in stop_words]
+    return key2, new_value
 
 dutchdictionary = {
     'oor':['ID', "prefered label", ['oor', 'structuur van oor']],
@@ -272,19 +315,18 @@ englishdictionary = {
 
 input_dictionary = {
     'lichaamsdelen': {'oor': [None, None, ['gehoorgang', 'trommelvlies', 'oorschelp']], 
-                    'gehoorgang': [None, None, ['auris externus']], \
+                    'gehoorgang': [None, None, ['auris externus']], 
                     'trommelvlies': [None, None, ['membrana tympani', 'tympanum']], 
                     'oorschelp': [None, None, ['pinna']]
                     },
-    'symptomen' : {'oorpijn': [None, None, ['auralgia', 'pijn in het oor']], 
-                   'jeuk in het oor': [None, None, ['pruritus auris']], 
-                   'vocht uit het oor': [None, None, ['otorroe']], 
-                   'gehoorverlies': [None, None, ['auditory loss']], 
-                   'zwelling': [None, None, ['oedeem']], 
-                   'roodheid': [None, None, ['erytheem']], 
-                   'schilfering': [None, None, ['desquamatie']], 
-                   'pijn bij tractie aan de oorschelp': [None, None, ['pijn bij trekken aan het oor']]
-                    },
+    'symptomen' : {'oorpijn': [None, None, ['otalgie', 'pijn aan het oor', 'pijnlijk oor']], 
+                   'jeuk in het oor': [None, None, ['pruritus in het oor', 'jeukende gehoorgang']], 
+                   'vocht uit het oor': [None, None, ['otorroe', 'vochtige gehoorgang', 'uitvloed uit het oor']], 
+                   'gehoorverlies': [None, None, ['hypacusis', 'verminderd gehoor', 'slecht horen']], 
+                   'zwelling van de gehoorgang': [None, None, ['oedeem van de gehoorgang', 'gezwollen gehoorgang']], 
+                   'roodheid van de gehoorgang': [None, None, ['erytheem van de gehoorgang', 'gehoorgang roodheid']], 
+                   'schilfering van de gehoorgang': [None, None, ['desquamatie van de gehoorgang', 'schilfers in het oor']]
+                 },
     'diagnoses': {'otitis externa': [None, None, ['uitwendige oorontsteking']], 
                   'otitis media acuta': [None, None, ['acute middenoorontsteking']], 
                   'furunkel': [None, None, ['boil']], 
@@ -293,8 +335,14 @@ input_dictionary = {
                   'corpus alienum': [None, None, ['vreemd voorwerp']], 
                   'cholesteatoom': [None, None, ['cholesteatoma']], 
                   'gehoorgangcarcinoom': [None, None, ['oor carcinoom']]},
-    'behandelingen': {'zure oordruppels': [None, None, ['acida oordruppels']], 'hydrocortison': [None, None, ['hydrocortisone']], 'triamcinolonacetonide': [None, None, ['triamcinolone acetonide']], 'flucloxacilline': [None, None, ['flucloxacillin']], 'occlusietherapie': [None, None, ['tamponneren']], 'uitspuiten van de gehoorgang': [None, None, ['cleaning of the ear canal']]}
+    'behandelingen': {'zure oordruppels': [None, None, ['acida oordruppels']], 
+                      'hydrocortison': [None, None, ['hydrocortisone']], 
+                      'triamcinolonacetonide': [None, None, ['triamcinolone acetonide']], 
+                      'flucloxacilline': [None, None, ['flucloxacillin']], 
+                      'occlusietherapie': [None, None, ['tamponneren']], 
+                      'uitspuiten van de gehoorgang': [None, None, ['cleaning of the ear canal']]}
 }
+
 
 
 if version == 'db':
@@ -307,6 +355,9 @@ start = time.time()
 buildOWL(dictionary, "Otitis Externa")
 end = time.time()
 print("Took", end - start, "seconds")
+
+
+
 
 #a: findings (symptomen)/disorders opzoeken in snomed - body parts die je nog niet hebt toevoegen\
 

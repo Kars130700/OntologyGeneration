@@ -65,7 +65,6 @@ Waarin 'key' het lichaamsdeel is en [synoniemen key] een lijst van synoniemen va
 Verzeker jezelf er van dat alle genoemde keys in de lichaamsdelen dictionary echt lichaamsdelen zijn, dus onderdelen van de menselijke anatomie. 
 Zorg er ook voor dat de synoniemen daadwerkelijk synoniemen zijn. Ze moeten dus echt het woord kunnen vervangen en dezelfde (biologische)
 functie hebben.
-Geef bij de synoniemen van symptomen meerdere samenstellingen. Pijn aan knie heeft dus als synoniemen 'pijnlijke knie', 'kniepijn', etc
 """
 
 import os
@@ -79,8 +78,9 @@ client = OpenAI(
     api_key = os.getenv('SP_CHATGPT_API_KEY'),
 )
 
+# First prompt setup
 completion = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-4o-mini",
     messages=[
         {
             "role": "user",
@@ -89,6 +89,35 @@ completion = client.chat.completions.create(
     ]
 )
 
+# Capture the first response
+response_1 = completion.choices[0].message.content
+
+# Now set up a second prompt based on the response from the first prompt
+second_prompt = """Lees de tekst nog eens en verbeter de dictionary. Geef bij de synoniemen van symptomen meerdere samenstellingen. Pijn aan knie heeft dus als synoniemen 'pijnlijke knie', 'kniepijn', etc. Wees daarnaast specifiek waar de symptomen aan gerelateerd zijn. 
+Zeg niet enkel zwelling, maar ook wat de zwelling heeft (bijvoorbeeld zwelling knie)"""
+
+# Send the second prompt along with the conversation history
+completion = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {
+            "role": "user",
+            "content": text + prompt_3
+        },
+        {
+            "role": "assistant",
+            "content": response_1
+        },
+        {
+            "role": "user",
+            "content": text + second_prompt
+        }
+    ]
+)
+
+# Capture the response to the second prompt
+response_2 = completion.choices[0].message
+print(response_2)
 #print(completion.choices[0].message)
 content="""Hieronder zijn de gevraagde Python dictionaries gemaakt op basis van de informatie in de tekst.\n\n
 python\n# Dictionary van lichaamsdelen\nlichaamsdelen = {\n    'oor': [None, None, ['gehoorgang', 'trommelvlies', 'oorschelp']],\n    'gehoorgang': [None, None, ['auris externus']],\n    'trommelvlies': [None, None, ['membrana tympani', 'tympanum']],\n    'oorschelp': [None, None, ['pinna']],\n}\n\n# Dictionary van symptomen\nsymptomen = {\n    'oorpijn': [None, None, ['auralgia', 'pijn in het oor']],\n    'jeuk in het oor': [None, None, ['pruritus auris']],\n    'vocht uit het oor': [None, None, ['otorroe']],\n    'gehoorverlies': [None, None, ['auditory loss']],\n    'zwelling': [None, None, ['oedeem']],\n    'roodheid': [None, None, ['erytheem']],\n    'schilfering': [None, None, ['desquamatie']],\n    'pijn bij tractie aan de oorschelp': [None, None, ['pijn bij trekken aan het oor']],\n}\n\n# Dictionary van diagnoses\ndiagnoses = {\n    'otitis externa': [None, None, ['uitwendige oorontsteking']],\n    'otitis media acuta': [None, None, ['acute middenoorontsteking']],\n    'furunkel': [None, None, ['boil']],\n    'herpes zoster oticus': [None, None, ['zoster oticus']],\n    'erysipelas': [None, None, ['rozevonk']],\n    'corpus alienum': [None, None, ['vreemd voorwerp']],\n    'cholesteatoom': [None, None, ['cholesteatoma']],\n    'gehoorgangcarcinoom': [None, None, ['oor carcinoom']],\n}\n\n# Dictionary van behandelingen\nbehandelingen = {\n    'zure oordruppels': [None, None, ['acida oordruppels']],\n    'hydrocortison': [None, None, ['hydrocortisone']],\n    'triamcinolonacetonide': [None, None, ['triamcinolone acetonide']],\n    'flucloxacilline': [None, None, ['flucloxacillin']],\n    'occlusietherapie': [None, None, ['tamponneren']],\n    'uitspuiten van de gehoorgang': [None, None, ['cleaning of the ear canal']],\n}\n
