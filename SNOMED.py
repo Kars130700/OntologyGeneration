@@ -27,6 +27,7 @@ version = 'db'
 
 def BFS_ontology(graph, start, search_term):
     print(f"Starting BFS with {start[1]}")
+    print(f"Search terms: {search_term}")
     queue = [start]
     visited = [start]
     parent_found = ()
@@ -159,8 +160,6 @@ def buildOWL(input_dict, guideline_title, debug = False):
         input_dict = {'ear': ['117590005', 'Ear structure (body structure)', ['ear', 'ear structure']],
                       'head': ['69536005', 'Head structure (body structure)', ['head', 'head structure']],
                       'eardrum': ['42859004', "Tympanic membrane structure (body structure)", ['eardrum', 'tympanic membrane structure', 'tympanic membrane']]}
-        
-    all_keys = list(input_dict['lichaamsdelen'].keys())
     
     start = time.time()
     symptoms_finding_sites = []
@@ -173,6 +172,7 @@ def buildOWL(input_dict, guideline_title, debug = False):
             g = add_OWL_relation(items, parent_id, g, ex, "has Finding Site", 123037004)
     print(symptoms_finding_sites)
     input_dict = add_finding_sites_to_body(symptoms_finding_sites, input_dict)
+    all_keys = list(input_dict['lichaamsdelen'].keys())
     print(input_dict)
     if 'lichaamsdelen' in input_dict:
         el = input_dict['lichaamsdelen']
@@ -200,7 +200,7 @@ def add_finding_sites_to_body(symptoms_finding_sites, input_dict):
     for ID in symptoms_finding_sites:
         if str(ID) not in existing_ids and ID != None:
             concept = queryConceptById(ID)
-            input_dict['lichaamsdelen'][concept] = [ID, concept, []]
+            input_dict['lichaamsdelen'][concept.replace(' (lichaamsstructuur)', '').replace('structuur van ', '')] = [ID, concept, []]
     return input_dict
 
 
@@ -264,13 +264,13 @@ def init_most_cmmn_id(key2, value2, function, remove_stopwords = False):
         key2, value2[2] = removal_of_stopwords(key2, value2)
     ID_key = function(key2)
     if ID_key != None:
-        ID_set.append(function(key2)) 
+        ID_set.append(ID_key) 
     for synonym in value2[2]:
         print(synonym)
         ID = function(synonym)
         if ID is not None:
             ID_set.append(ID)
-    
+
     if len(ID_set) > 0:
         value2[0] = most_common(ID_set)
     else:

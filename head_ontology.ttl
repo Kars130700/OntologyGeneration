@@ -30,21 +30,29 @@ ex:hasRelation2 a owl:ObjectProperty ;
 
 ex:hasRelation3 a owl:ObjectProperty ;
     rdfs:label "has Finding Site" ;
-    rdfs:domain ex:229643008 ;
-    rdfs:range ex:123037004 .
+    rdfs:domain ex:65668001 ;
+    rdfs:range ex:117590005 .
 
 ex:hasRelation4 a owl:ObjectProperty ;
+    rdfs:label "has Finding Site" ;
+    rdfs:domain ex:15188001 ;
+    rdfs:range ex:91159003 .
+
+ex:hasRelation5 a owl:ObjectProperty ;
     rdfs:label "has Finding Site" ;
     rdfs:domain ex:277170006 ;
     rdfs:range ex:84301002 .
 
-ex:hasRelation5 a owl:ObjectProperty ;
+ex:hasRelation6 a owl:ObjectProperty ;
     rdfs:label "has Finding Site" ;
     rdfs:domain ex:277172003 ;
     rdfs:range ex:84301002 .
 
-ex:229643008 a owl:Class ;
-    rdfs:label "stem bij doofheid (bevinding)" .
+ex:123037004 a owl:Class ;
+    rdfs:label "Patient" .
+
+ex:15188001 a owl:Class ;
+    rdfs:label "gehoorverlies (aandoening)" .
 
 ex:277170006 a owl:Class ;
     rdfs:label "oedeem van uitwendige gehoorgang (bevinding)" .
@@ -55,17 +63,21 @@ ex:277172003 a owl:Class ;
 ex:301354004 a owl:Class ;
     rdfs:label "pijn aan oor (bevinding)" .
 
+ex:65668001 a owl:Class ;
+    rdfs:label "otorroe (aandoening)" .
+
 ex:699392007 a owl:Class ;
     rdfs:label "jeukend oor (bevinding)" .
-
-ex:123037004 a owl:Class ;
-    rdfs:label "Patient" .
 
 ex:84301002 a owl:Class ;
     rdfs:label "structuur van meatus acusticus externus (lichaamsstructuur)" ;
     rdfs:subClassOf ex:117590005 .
 
+ex:91159003 a owl:Class ;
+    rdfs:label "structuur van auditief systeem (lichaamsstructuur)" ;
+    rdfs:subClassOf ex:123037004 .
+
 ex:117590005 a owl:Class ;
     rdfs:label "structuur van oor (lichaamsstructuur)" ;
-    rdfs:subClassOf ex:123037004 .
+    rdfs:subClassOf ex:91159003 .
 

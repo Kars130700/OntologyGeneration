@@ -76,7 +76,8 @@ def queryParentsById(conceptId, search_term, limit=8):
                 return (True, word, destinationId[0])
         parents.append((destinationId[0], fsn))
     return parents
-    
+
+
 # Results: 
 ## getSnomedConceptId('ear') takes about 2.3 seconds, querySnomedConceptId('oor') takes about 4.4 seconds
 ### api call is 1.9 times faster
