@@ -104,13 +104,13 @@ cursor.execute("CREATE INDEX definition_concept ON definition(conceptId)")
 ## GRANT FILE ON *.* TO 'root'@'localhost';
 ## \u snomedct
 # Concepts:
-## LOAD DATA LOCAL INFILE "C:/Users/ravan/Documents/GitHub/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Concept_Snapshot_NL1000146_20240930.txt" INTO TABLE concept LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`definitionStatusId`);
+## LOAD DATA LOCAL INFILE "C:/Users/ravan.RTX3090/Documents/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Concept_Snapshot_NL1000146_20240930.txt" INTO TABLE concept LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`definitionStatusId`);
 # Descriptions:
-## LOAD DATA LOCAL INFILE "C:/Users/ravan/Documents/GitHub/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Description_Snapshot-nl_NL1000146_20240930.txt" INTO TABLE description LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`conceptId`,`languageCode`,`typeId`,`term`,`caseSignificanceId`);
+## LOAD DATA LOCAL INFILE "C:/Users/ravan.RTX3090/Documents/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Description_Snapshot-nl_NL1000146_20240930.txt" INTO TABLE description LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`conceptId`,`languageCode`,`typeId`,`term`,`caseSignificanceId`);
 # Relationships:
-## LOAD DATA LOCAL INFILE "C:/Users/ravan/Documents/GitHub/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Relationship_Snapshot_NL1000146_20240930.txt" INTO TABLE relationship LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`sourceId`,`destinationId`,`relationshipGroup`,`typeId`,`characteristicTypeId`,`modifierId`);
+## LOAD DATA LOCAL INFILE "C:/Users/ravan.RTX3090/Documents/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Relationship_Snapshot_NL1000146_20240930.txt" INTO TABLE relationship LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`sourceId`,`destinationId`,`relationshipGroup`,`typeId`,`characteristicTypeId`,`modifierId`);
 # Definitions:
-## LOAD DATA LOCAL INFILE "C:/Users/ravan/Documents/GitHub/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_TextDefinition_Snapshot-nl_NL1000146_20240930.txt" INTO TABLE definition LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`, `effectiveTime`, `active`, `moduleId`, `conceptId`, `languageCode`, `typeId`, `term`, `caseSignificanceId`);
+## LOAD DATA LOCAL INFILE "C:/Users/ravan.RTX3090/Documents/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_TextDefinition_Snapshot-nl_NL1000146_20240930.txt" INTO TABLE definition LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`, `effectiveTime`, `active`, `moduleId`, `conceptId`, `languageCode`, `typeId`, `term`, `caseSignificanceId`);
 
 #For Kars:
 # CMD

@@ -96,7 +96,8 @@ def add_OWL_class(key, conc, g, ex, main_class, finding = False):
     synonyms = None
     if conc[0] is not None:
         definition = queryDefinitionById(conc[0])
-        # synonyms = querySynonymList(conc[0], key)
+        synonyms = querySynonymList(conc[0], key)
+        g.add((subclass, ex.hasId, Literal(concept)))
 
     g.add((subclass, RDF.type, OWL.Class))
     if not finding:
@@ -104,7 +105,7 @@ def add_OWL_class(key, conc, g, ex, main_class, finding = False):
     g.add((subclass, RDFS.label, Literal(key)))
     if definition is not None:
         g.add((subclass, ex.hasDescription, Literal(definition)))
-    if synonyms is not None and len(synonyms) > 0:
+    if synonyms is not None:
         g.add((subclass, ex.hasSynonyms, Literal(synonyms)))
     return g
 
@@ -169,6 +170,15 @@ def buildOWL(input_dict, guideline_title, debug = False):
                       'eardrum': ['42859004', "Tympanic membrane structure (body structure)", ['eardrum', 'tympanic membrane structure', 'tympanic membrane']]}
     
     start = time.time()
+    # TODO: Fully add diagnoses and treatments
+    if 'diagnoses' in input_dict:
+        el = input_dict['diagnoses']
+        main = next(iter(el))
+        # g = add_OWL_class(main, el[main], g, ex, 123037004, finding = True)
+
+        for key, items in el.items():
+            continue
+
     symptoms_finding_sites = []
     if 'symptomen' in input_dict:
         el = input_dict['symptomen']
@@ -177,6 +187,7 @@ def buildOWL(input_dict, guideline_title, debug = False):
             symptoms_finding_sites.append(parent_id)
             g = add_OWL_class(key, items, g, ex, parent_id, finding = True)
             g = add_OWL_relation(items, parent_id, g, ex, "has Finding Site", 123037004)
+            # TODO: Relation to disorder: g = add_OWL_relation(items, )
     print(symptoms_finding_sites)
     input_dict = add_finding_sites_to_body(symptoms_finding_sites, input_dict)
     all_keys = list(input_dict['lichaamsdelen'].keys())
@@ -228,6 +239,7 @@ def most_common(lst):
 def identify_root_IDs(input_dict: dict):
     start = time.time()
     # We loop through the synonyms, gather all IDs and check the one that is most occuring
+    # TODO: Fully add disorders and treatments
     for key, value in input_dict.items():
         if key == 'symptomen':
             for key2, value2 in value.items():

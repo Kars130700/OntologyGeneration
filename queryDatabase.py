@@ -86,6 +86,13 @@ def queryDefinitionById(id):
     return None
 
 def querySynonymList(id, key):
+    query = f"SELECT term FROM description as de WHERE de.active = 1 AND de.conceptId = {id}"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    result = list(map(lambda x: (x[0]), result))
+    result = list(filter(lambda x: (x != key), result))
+    if len(result) > 0:
+        return ', '.join(result)
     return None
 
 # Results: 
