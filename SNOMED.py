@@ -9,7 +9,7 @@ from rdflib import Graph, Namespace, URIRef, Literal, RDF, RDFS, OWL
 import regex as re
 from visualizeOwls import visualize_owl
 from helperFunctions import getSnomedConceptId, getParentsById, getConceptById, getSnomedFindingId
-from queryDatabase import querySnomedConceptId, queryParentsById, queryConceptById, queryFindingsFindingsiteById
+from queryDatabase import querySnomedConceptId, queryParentsById, queryConceptById, queryFindingsFindingsiteById, queryDefinitionById, querySynonymList
 import nltk
 from nltk.corpus import stopwords
 nltk.download('stopwords')
@@ -23,7 +23,6 @@ version = '2024-09-30'
 # Replace with a contact email so that we can contact you if your script causes excessive load on the public server
 # For example: user_agent = 'example@example.com'
 user_agent = 'tienvoortheorie@gmail.com'
-version = 'db'
 
 def BFS_ontology(graph, start, search_term):
     print(f"Starting BFS with {start[1]}")
@@ -34,10 +33,7 @@ def BFS_ontology(graph, start, search_term):
 
     while len(queue) > 0:
         current = queue.pop(0)
-        if version == 'db':
-            parents = queryParentsById(current[0], search_term)
-        else:
-            parents = getParentsById(current[0], search_term)
+        parents = queryParentsById(current[0], search_term)
         print(parents)
 
         if len(parents) == 0:
@@ -90,15 +86,26 @@ def add_OWL_relation(source_concept, target_concept, g, ex, label, patient):
 
     return g
 
-def add_OWL_class(conc, g, ex, main_class, finding = False):
+def add_OWL_class(key, conc, g, ex, main_class, finding = False):
     concept = sanitize_uri(conc[0])
     main_class = sanitize_uri(main_class)
     subclass = URIRef(ex[concept])
     main_class = URIRef(ex[main_class])
+
+    definition = None
+    synonyms = None
+    if conc[0] is not None:
+        definition = queryDefinitionById(conc[0])
+        # synonyms = querySynonymList(conc[0], key)
+
     g.add((subclass, RDF.type, OWL.Class))
     if not finding:
         g.add((subclass, RDFS.subClassOf, main_class))
-    g.add((subclass, RDFS.label, Literal(conc[1])))
+    g.add((subclass, RDFS.label, Literal(key)))
+    if definition is not None:
+        g.add((subclass, ex.hasDescription, Literal(definition)))
+    if synonyms is not None and len(synonyms) > 0:
+        g.add((subclass, ex.hasSynonyms, Literal(synonyms)))
     return g
 
 def sanitize_uri(name):
@@ -168,7 +175,7 @@ def buildOWL(input_dict, guideline_title, debug = False):
         for key, items in el.items():
             parent_id = getFindings(items)
             symptoms_finding_sites.append(parent_id)
-            g = add_OWL_class(items, g, ex, parent_id, finding = True)
+            g = add_OWL_class(key, items, g, ex, parent_id, finding = True)
             g = add_OWL_relation(items, parent_id, g, ex, "has Finding Site", 123037004)
     print(symptoms_finding_sites)
     input_dict = add_finding_sites_to_body(symptoms_finding_sites, input_dict)
@@ -186,7 +193,7 @@ def buildOWL(input_dict, guideline_title, debug = False):
                 parent_id = input_dict['lichaamsdelen'][parent][0]
             else:
                 parent_id = '123037004'
-            g = add_OWL_class(items, g, ex, parent_id)
+            g = add_OWL_class(key, items, g, ex, parent_id)
                 
 
     end = time.time()
@@ -221,35 +228,25 @@ def most_common(lst):
 def identify_root_IDs(input_dict: dict):
     start = time.time()
     # We loop through the synonyms, gather all IDs and check the one that is most occuring
-    if version == 'db':
-        for key, value in input_dict.items():
-            if key == 'symptomen':
-                for key2, value2 in value.items():
-                    print(key2)
-                    #try:
-                    value2 = init_most_cmmn_id(key2, value2, getSnomedFindingId, True)
-                    #except Exception as e:
-                        # print(value2[0])
-                        # print(f"While looking for finding {key2} an error occured: {e}")
-                    print(f"Keyword '{key2}' coupled to id {value2[0]}")
-            if key == 'lichaamsdelen':
-                for key2, value2 in value.items():
-                    print(key2) 
-                    try:
-                        value2 = init_most_cmmn_id(key2, value2, getSnomedConceptId)
-                    except Exception as e:
-                        print(value2[0])
-                        print(f"While looking for word {key2} an error occured: {e}")
-                    print(f"Keyword '{key2}' coupled to id {value2[0]}")
-    else:
-        for key, value in input_dict.items():
-            ID_set = []
-            ID_set.append(getSnomedConceptId(key))
-            for synonym in value[2]:
-                ID_set.append(getSnomedConceptId(synonym))
-            value[0] = most_common(ID_set)
-            value[1] = getConceptById(value[0])
-            print(f"Keyword '{key}' coupled to id {value[0]}")
+    for key, value in input_dict.items():
+        if key == 'symptomen':
+            for key2, value2 in value.items():
+                print(key2)
+                #try:
+                value2 = init_most_cmmn_id(key2, value2, getSnomedFindingId, True)
+                #except Exception as e:
+                    # print(value2[0])
+                    # print(f"While looking for finding {key2} an error occured: {e}")
+                print(f"Keyword '{key2}' coupled to id {value2[0]}")
+        if key == 'lichaamsdelen':
+            for key2, value2 in value.items():
+                print(key2) 
+                try:
+                    value2 = init_most_cmmn_id(key2, value2, getSnomedConceptId)
+                except Exception as e:
+                    print(value2[0])
+                    print(f"While looking for word {key2} an error occured: {e}")
+                print(f"Keyword '{key2}' coupled to id {value2[0]}")
     end = time.time()
     print("identyfy_root_IDs took", end - start, "seconds")
     return input_dict
@@ -299,20 +296,6 @@ def removal_of_stopwords(key2, value2):
     value2 = [w for w in value2[2] if not w.lower() in stop_words]
     return key2, new_value
 
-dutchdictionary = {
-    'oor':['ID', "prefered label", ['oor', 'structuur van oor']],
-    'hoofd': ['ID', "prefered label",['hoofd', 'structuur van hoofd']], 
-    #'External Auditory Canal': ['ID', "prefered label",['External Auditory Canal']],
-    'trommelvlies': ['ID', "prefered label",['trommelvlies', 'membrana tympanica']]
-}
-
-englishdictionary = {
-    'ear':['ID', "prefered label", ['ear', 'ear structure']],
-    'head': ['ID', "prefered label",['head', 'head structure']], 
-    #'External Auditory Canal': ['ID', "prefered label",['External Auditory Canal']],
-    'eardrum': ['ID', "prefered label",['eardrum', 'tympanic membrane']]
-}
-
 input_dictionary = {
     'lichaamsdelen': {'oor': [None, None, ['gehoorgang', 'trommelvlies', 'oorschelp']], 
                     'gehoorgang': [None, None, ['auris externus']], 
@@ -343,16 +326,8 @@ input_dictionary = {
                       'uitspuiten van de gehoorgang': [None, None, ['cleaning of the ear canal']]}
 }
 
-
-
-if version == 'db':
-    #dictionary = dutchdictionary
-    dictionary = input_dictionary
-else:
-    dictionary = englishdictionary
-
 start = time.time()
-buildOWL(dictionary, "Otitis Externa")
+buildOWL(input_dictionary, "Otitis Externa")
 end = time.time()
 print("Took", end - start, "seconds")
 

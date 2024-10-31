@@ -5,15 +5,17 @@
 <http://example.org/Otitis_Externa> a owl:Ontology .
 
 ex:113327001 a owl:Class ;
-    rdfs:label "structuur van auricula (lichaamsstructuur)" ;
+    rdfs:label "oorschelp" ;
+    ex:hasDescription "Het uitwendige, zichtbare deel van het oor, waarmee geluiden worden opgevangen en wordt bepaald uit welke richting een geluid komt." ;
     rdfs:subClassOf ex:117590005 .
 
 ex:42859004 a owl:Class ;
-    rdfs:label "structuur van membrana tympanica (lichaamsstructuur)" ;
+    rdfs:label "trommelvlies" ;
+    ex:hasDescription "Vlies dat de uitwendige gehoorgang afsluit van de erachter gelegen trommelholte of het middenoor." ;
     rdfs:subClassOf ex:117590005 .
 
 ex:None a owl:Class ;
-    rdfs:label "None" .
+    rdfs:label "schilfering van de gehoorgang" .
 
 ex:Otitis_Externa a owl:Class ;
     rdfs:label "Otitis Externa" .
@@ -52,32 +54,36 @@ ex:123037004 a owl:Class ;
     rdfs:label "Patient" .
 
 ex:15188001 a owl:Class ;
-    rdfs:label "gehoorverlies (aandoening)" .
+    rdfs:label "gehoorverlies" ;
+    ex:hasDescription "Niet goed kunnen horen." .
 
 ex:277170006 a owl:Class ;
-    rdfs:label "oedeem van uitwendige gehoorgang (bevinding)" .
+    rdfs:label "zwelling van de gehoorgang" .
 
 ex:277172003 a owl:Class ;
-    rdfs:label "erytheem van uitwendige gehoorgang (bevinding)" .
+    rdfs:label "roodheid van de gehoorgang" .
 
 ex:301354004 a owl:Class ;
-    rdfs:label "pijn aan oor (bevinding)" .
+    rdfs:label "oorpijn" .
 
 ex:65668001 a owl:Class ;
-    rdfs:label "otorroe (aandoening)" .
+    rdfs:label "vocht uit het oor" ;
+    ex:hasDescription "Uitvloeiing van etterige vloeistof, soms met bloed, uit het middenoor door een gaatje in het trommelvlies, vaak als gevolg van een middenoorontsteking." .
 
 ex:699392007 a owl:Class ;
-    rdfs:label "jeukend oor (bevinding)" .
+    rdfs:label "jeuk in het oor" .
 
 ex:84301002 a owl:Class ;
-    rdfs:label "structuur van meatus acusticus externus (lichaamsstructuur)" ;
+    rdfs:label "gehoorgang" ;
+    ex:hasDescription "Holle buis die de oorschelp met het trommelvlies verbindt." ;
     rdfs:subClassOf ex:117590005 .
 
 ex:91159003 a owl:Class ;
-    rdfs:label "structuur van auditief systeem (lichaamsstructuur)" ;
+    rdfs:label "auditief systeem" ;
     rdfs:subClassOf ex:123037004 .
 
 ex:117590005 a owl:Class ;
-    rdfs:label "structuur van oor (lichaamsstructuur)" ;
+    rdfs:label "oor" ;
+    ex:hasDescription "Organen waarmee geluiden worden waargenomen; in engere zin de oorschelpen." ;
     rdfs:subClassOf ex:91159003 .
 

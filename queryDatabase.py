@@ -77,6 +77,16 @@ def queryParentsById(conceptId, search_term, limit=8):
         parents.append((destinationId[0], fsn))
     return parents
 
+def queryDefinitionById(id):
+    query = f"SELECT term FROM definition as de WHERE de.active = 1 AND de.conceptId = {id}"
+    cursor.execute(query)
+    result = cursor.fetchone()
+    if result is not None and len(result) > 0:
+        return result[0]
+    return None
+
+def querySynonymList(id, key):
+    return None
 
 # Results: 
 ## getSnomedConceptId('ear') takes about 2.3 seconds, querySnomedConceptId('oor') takes about 4.4 seconds

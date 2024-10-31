@@ -36,6 +36,7 @@ cursor.execute("SET SESSION sql_mode = ''")
 cursor.execute("DROP TABLE IF EXISTS concept")
 cursor.execute("DROP TABLE IF EXISTS description")
 cursor.execute("DROP TABLE IF EXISTS relationship")
+cursor.execute("DROP TABLE IF EXISTS definition")
 
 # Create empty tables
 cursor.execute("CREATE TABLE concept (" + 
@@ -71,11 +72,24 @@ cursor.execute("CREATE TABLE relationship (" +
     "modifierId BIGINT NOT NULL DEFAULT 0," +
     "PRIMARY KEY (id, effectiveTime))" +
     "ENGINE=MyISAM DEFAULT CHARSET=utf8mb4")
+cursor.execute("CREATE TABLE definition (" +
+    "id BIGINT NOT NULL DEFAULT 0," +
+    "effectiveTime DATETIME NOT NULL DEFAULT '2000-01-31 00:00:00'," +
+    "active TINYINT NOT NULL DEFAULT 0," +
+    "moduleId BIGINT NOT NULL DEFAULT 0," +
+    "conceptId BIGINT NOT NULL DEFAULT 0," +
+    "languageCode VARCHAR(3) NOT NULL DEFAULT ''," +
+    "typeId BIGINT NOT NULL DEFAULT 0," +
+    "term TEXT NOT NULL," +
+    "caseSignificanceId BIGINT NOT NULL DEFAULT 0," +
+    "PRIMARY KEY (id, effectiveTime))" +
+    "ENGINE=MyISAM DEFAULT CHARSET=utf8mb4")
 
 # Create additional indexes
 cursor.execute("CREATE FULLTEXT INDEX description_term ON description(term)")
 cursor.execute("CREATE INDEX description_concept ON description(conceptId)")
 cursor.execute("CREATE INDEX relationship_source ON relationship(sourceId, typeID, destinationID)")
+cursor.execute("CREATE INDEX definition_concept ON definition(conceptId)")
 
 
 # C:/Users/ravan/Documents/GitHub
@@ -90,12 +104,13 @@ cursor.execute("CREATE INDEX relationship_source ON relationship(sourceId, typeI
 ## GRANT FILE ON *.* TO 'root'@'localhost';
 ## \u snomedct
 # Concepts:
-##LOAD DATA LOCAL INFILE "C:\Users\karst\Documents\University\SP\Software Production - Ontology Generation\SnomedNL\SnomedCT_ManagedServiceNL_PRODUCTION_NL1000146_20240930T120000Z\Snapshot\Terminology\sct2_Concept_Snapshot_NL1000146_20240930.txt" INTO TABLE concept LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`definitionStatusId`);
+## LOAD DATA LOCAL INFILE "C:/Users/ravan/Documents/GitHub/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Concept_Snapshot_NL1000146_20240930.txt" INTO TABLE concept LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`definitionStatusId`);
 # Descriptions:
-## LOAD DATA LOCAL INFILE "[path]/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Description_Snapshot-nl_NL1000146_20240930.txt" INTO TABLE description LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`conceptId`,`languageCode`,`typeId`,`term`,`caseSignificanceId`);
+## LOAD DATA LOCAL INFILE "C:/Users/ravan/Documents/GitHub/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Description_Snapshot-nl_NL1000146_20240930.txt" INTO TABLE description LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`conceptId`,`languageCode`,`typeId`,`term`,`caseSignificanceId`);
 # Relationships:
-## LOAD DATA LOCAL INFILE "[path]/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Relationship_Snapshot_NL1000146_20240930.txt" INTO TABLE relationship LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`sourceId`,`destinationId`,`relationshipGroup`,`typeId`,`characteristicTypeId`,`modifierId`);
-
+## LOAD DATA LOCAL INFILE "C:/Users/ravan/Documents/GitHub/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_Relationship_Snapshot_NL1000146_20240930.txt" INTO TABLE relationship LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`,`effectiveTime`,`active`,`moduleId`,`sourceId`,`destinationId`,`relationshipGroup`,`typeId`,`characteristicTypeId`,`modifierId`);
+# Definitions:
+## LOAD DATA LOCAL INFILE "C:/Users/ravan/Documents/GitHub/OntologyGeneration/SnomedNL/Snapshot/Terminology/sct2_TextDefinition_Snapshot-nl_NL1000146_20240930.txt" INTO TABLE definition LINES TERMINATED BY '\r\n' IGNORE 1 LINES (`id`, `effectiveTime`, `active`, `moduleId`, `conceptId`, `languageCode`, `typeId`, `term`, `caseSignificanceId`);
 
 #For Kars:
 # CMD
