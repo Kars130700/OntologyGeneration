@@ -8,7 +8,7 @@ import networkx as nx
 from rdflib import Graph, Namespace, URIRef, Literal, RDF, RDFS, OWL
 import regex as re
 from visualizeOwls import visualize_owl
-from helperFunctions import getSnomedConceptId, getParentsById, getConceptById, getSnomedFindingId
+from helperFunctions import getSnomedConceptId, getParentsById, getConceptById, getSnomedFindingId, getSnomedDisorderId, getSnomedTreatmentId
 from queryDatabase import querySnomedConceptId, queryParentsById, queryConceptById, queryFindingsFindingsiteById, queryDefinitionById, querySynonymList
 import nltk
 from nltk.corpus import stopwords
@@ -60,6 +60,8 @@ def add_OWL_relation(source_concept, target_concept, g, ex, label, patient):
         return g
     
     if target_concept is None:
+        if patient is None:
+            return g
         target_concept = patient
         
     source_concept = sanitize_uri(source_concept[0])  # First element for URI
@@ -86,7 +88,7 @@ def add_OWL_relation(source_concept, target_concept, g, ex, label, patient):
 
     return g
 
-def add_OWL_class(key, conc, g, ex, main_class, finding = False):
+def add_OWL_class(key, conc, g, ex, main_class, type, finding = False):
     concept = sanitize_uri(conc[0])
     main_class = sanitize_uri(main_class)
     subclass = URIRef(ex[concept])
@@ -94,10 +96,14 @@ def add_OWL_class(key, conc, g, ex, main_class, finding = False):
 
     definition = None
     synonyms = None
-    if conc[0] is not None:
-        definition = queryDefinitionById(conc[0])
-        synonyms = querySynonymList(conc[0], key)
-        g.add((subclass, ex.hasId, Literal(concept)))
+    # TODO: Add reporting for unmatched terms
+    if conc[0] is None:
+        return g
+    
+    definition = queryDefinitionById(conc[0])
+    synonyms = querySynonymList(conc[0], key)
+    g.add((subclass, ex.hasId, Literal(concept)))
+    g.add((subclass, ex.hasType, Literal(type)))
 
     g.add((subclass, RDF.type, OWL.Class))
     if not finding:
@@ -152,14 +158,11 @@ def buildOWL(input_dict, guideline_title, debug = False):
     g.bind("ex", ex)  # Bind the custom namespace for easier access
     g.add((URIRef(f"http://example.org/{conc}"), RDF.type, OWL.Ontology))
 
-    main_class_name = sanitize_uri(guideline_title)
-    main_class = URIRef(ex[main_class_name])
     patient_class_name = 'Patient'
     patient_class = URIRef(ex['123037004'])
-    g.add((main_class, RDF.type, OWL.Class))
-    g.add((main_class, RDFS.label, Literal(guideline_title)))
     g.add((patient_class, RDF.type, OWL.Class))
     g.add((patient_class, RDFS.label, Literal(patient_class_name)))
+    g.add((patient_class, ex.hasId, Literal(123037004)))
 
 
     if not debug:
@@ -168,26 +171,35 @@ def buildOWL(input_dict, guideline_title, debug = False):
         input_dict = {'ear': ['117590005', 'Ear structure (body structure)', ['ear', 'ear structure']],
                       'head': ['69536005', 'Head structure (body structure)', ['head', 'head structure']],
                       'eardrum': ['42859004', "Tympanic membrane structure (body structure)", ['eardrum', 'tympanic membrane structure', 'tympanic membrane']]}
-    
+
     start = time.time()
-    # TODO: Fully add diagnoses and treatments
+    symptoms_finding_sites = []
+    main_disorder = None
     if 'diagnoses' in input_dict:
         el = input_dict['diagnoses']
+
         main = next(iter(el))
-        # g = add_OWL_class(main, el[main], g, ex, 123037004, finding = True)
-
+        main_disorder = el[main]
+        g = add_OWL_class(main, el[main], g, ex, 123037004, 'main disorder', finding = True)
+        main_finding_site = getFindings(el[main])
+        if main_finding_site:
+            symptoms_finding_sites.append(main_finding_site)
+            g = add_OWL_relation(el[main], main_finding_site, g, ex, "has finding site", 123037004)
+        g = add_OWL_relation([123037004], main_disorder[0], g, ex, "has disorder", None)
+        
         for key, items in el.items():
-            continue
-
-    symptoms_finding_sites = []
+            if key == main:
+                continue
+            g = add_OWL_class(key, items, g, ex, 123037004, 'disorder', finding = True)
+            g = add_OWL_relation(el[main], items[0], g, ex, "has associated disorder", None)
     if 'symptomen' in input_dict:
         el = input_dict['symptomen']
         for key, items in el.items():
             parent_id = getFindings(items)
             symptoms_finding_sites.append(parent_id)
-            g = add_OWL_class(key, items, g, ex, parent_id, finding = True)
-            g = add_OWL_relation(items, parent_id, g, ex, "has Finding Site", 123037004)
-            # TODO: Relation to disorder: g = add_OWL_relation(items, )
+            g = add_OWL_class(key, items, g, ex, parent_id, 'symptom', finding = True)
+            g = add_OWL_relation(items, parent_id, g, ex, "has finding site", 123037004)
+            g = add_OWL_relation(main_disorder, items[0], g, ex, "has associated symptom", None)
     print(symptoms_finding_sites)
     input_dict = add_finding_sites_to_body(symptoms_finding_sites, input_dict)
     all_keys = list(input_dict['lichaamsdelen'].keys())
@@ -198,13 +210,17 @@ def buildOWL(input_dict, guideline_title, debug = False):
             other_keys = [k for k in all_keys if k != key]
             search_terms = other_keys
 
-            #TODO: search term is alles behalve het element nu
             parent = BFS_ontology([],(items[0], items[1]), search_term = search_terms)
             if not(parent == 'patient'):
                 parent_id = input_dict['lichaamsdelen'][parent][0]
             else:
                 parent_id = '123037004'
-            g = add_OWL_class(key, items, g, ex, parent_id)
+            g = add_OWL_class(key, items, g, ex, parent_id, 'body part')
+    if 'behandelingen' in input_dict:
+        el = input_dict['behandelingen']
+        for key, items in el.items():
+            g = add_OWL_class(key, items, g, ex, 123037004, 'treatment', finding = True)
+            g = add_OWL_relation(main_disorder, items[0], g, ex, "has associated treatment", None)
                 
 
     end = time.time()
@@ -232,14 +248,15 @@ def most_common(lst):
     counts = {item: lst.count(item) for item in set(lst)}
     max_count = max(counts.values())
     if max_count > 1:
-        return max(counts, key=counts.get)
+        for listItem in lst:
+            if counts[listItem] == max_count:
+                return listItem
     else:
         return lst[0]
 
 def identify_root_IDs(input_dict: dict):
     start = time.time()
     # We loop through the synonyms, gather all IDs and check the one that is most occuring
-    # TODO: Fully add disorders and treatments
     for key, value in input_dict.items():
         if key == 'symptomen':
             for key2, value2 in value.items():
@@ -259,6 +276,24 @@ def identify_root_IDs(input_dict: dict):
                     print(value2[0])
                     print(f"While looking for word {key2} an error occured: {e}")
                 print(f"Keyword '{key2}' coupled to id {value2[0]}")
+        if key == 'diagnoses':
+            for key2, value2 in value.items():
+                print(key2)
+                try:
+                    value2 = init_most_cmmn_id(key2, value2, getSnomedDisorderId, True)
+                except:
+                    print(value2[0])
+                    print(f"While looking for word {key2} an error occured: {e}")
+                print(f"Keyword '{key2}' coupled to id {value2[0]}")
+        if key == 'behandelingen':
+            for key2, value2 in value.items():
+                print(key2)
+                try:
+                    value2 = init_most_cmmn_id(key2, value2, getSnomedTreatmentId, True)
+                except:
+                    print(value2[0])
+                    print(f"While looking for word {key2} an error occured: {e}")
+                print(f"Keyword '{key2}' coupled to id {value2[0]}")
     end = time.time()
     print("identyfy_root_IDs took", end - start, "seconds")
     return input_dict
@@ -272,13 +307,20 @@ def init_most_cmmn_id(key2, value2, function, remove_stopwords = False):
     if remove_stopwords:
         key2, value2[2] = removal_of_stopwords(key2, value2)
     ID_key = function(key2)
-    if ID_key != None:
-        ID_set.append(ID_key) 
+    if ID_key[0] != None:
+        # If key has a perfect match, add it twice
+        if ID_key[1]:
+            ID_set.append(ID_key[0])
+        ID_set.append(ID_key[0])
+        
     for synonym in value2[2]:
         print(synonym)
         ID = function(synonym)
-        if ID is not None:
-            ID_set.append(ID)
+        if ID[0] is not None:
+            # If synonym has a perfect match, add it twice
+            if ID[1]:
+                ID_set.append(ID[0])
+            ID_set.append(ID[0])
 
     if len(ID_set) > 0:
         value2[0] = most_common(ID_set)

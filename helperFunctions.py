@@ -119,9 +119,9 @@ def getSnomedConceptId(searchTerm):
 
     for term in data['items']:
         if searchTerm.lower() == term['term'].lower():
-            return term['concept']['conceptId']
+            return (term['concept']['conceptId'], False)
 
-    return None
+    return (None, False)
 
 def getSnomedFindingId(searchTerm):
     # Define the typeId for findings (replace with the correct one for your database)
@@ -138,7 +138,46 @@ def getSnomedFindingId(searchTerm):
         type_term = term['concept']['fsn']['term'].strip(" ")
         # Check if the term matches and if it is of type finding
         if ('(finding)' in type_term or '(disorder)' in type_term):
-            return term['concept']['conceptId']
+            if term['term'].lower() == searchTerm:
+                return (term['concept']['conceptId'], True)
+            return (term['concept']['conceptId'], False)
 
-    return None
+    return (None, False)
 
+def getSnomedDisorderId(searchTerm):
+    url = (f"{baseUrl}/browser/{edition}/{version}/descriptions?"
+           f"term={quote(searchTerm)}&conceptActive=true&groupByConcept=false"
+           f"&type=900000000000013009&type=900000000000003001"
+           f"&searchMode=STANDARD&language=nl&offset=0&limit=50")
+
+    response = urlopen_with_header(url).read()
+    data = json.loads(response.decode('utf-8'))
+
+    for term in data['items']:
+        type_term = term['concept']['fsn']['term'].strip(" ")
+        # Check if the term matches and if it is of type finding
+        if ('(disorder)' in type_term):
+            if term['term'].lower() == searchTerm:
+                return (term['concept']['conceptId'], True)
+            return (term['concept']['conceptId'], False)
+
+    return (None, False)
+
+def getSnomedTreatmentId(searchTerm):
+    url = (f"{baseUrl}/browser/{edition}/{version}/descriptions?"
+           f"term={quote(searchTerm)}&conceptActive=true&groupByConcept=false"
+           f"&type=900000000000013009&type=900000000000003001"
+           f"&searchMode=STANDARD&language=nl&offset=0&limit=50")
+
+    response = urlopen_with_header(url).read()
+    data = json.loads(response.decode('utf-8'))
+
+    for term in data['items']:
+        type_term = term['concept']['fsn']['term'].strip(" ")
+        # Check if the term matches and if it is of type finding
+        if ('(treatment)' in type_term or '(substance)' in type_term or '(procedure)' in type_term or '(dose form)' in type_term):
+            if term['term'].lower() == searchTerm:
+                return (term['concept']['conceptId'], True)
+            return (term['concept']['conceptId'], False)
+
+    return (None, False)
