@@ -1,0 +1,41 @@
+@prefix ex: <http://example.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Object Property Definition
+ex:hasSymptom a owl:ObjectProperty ;
+    rdfs:label "has symptom" ;
+    rdfs:domain ex:Disease ;
+    rdfs:range ex:Symptom .
+
+# Classes
+ex:Disease a owl:Class ;
+    rdfs:label "Disease" .
+
+ex:Symptom a owl:Class ;
+    rdfs:label "Symptom" .
+
+# Disease Classes
+ex:Flu a ex:Disease ;
+    rdfs:label "Flu" ;
+    ex:hasSymptom ex:Fever, ex:Cough .
+
+ex:Cold a ex:Disease ;
+    rdfs:label "Cold" ;
+    ex:hasSymptom ex:RunnyNose, ex:SoreThroat .
+
+# Symptom Classes
+ex:Fever a ex:Symptom ;
+    rdfs:label "Fever" .
+
+ex:Cough a ex:Symptom ;
+    rdfs:label "Cough" .
+
+ex:RunnyNose a ex:Symptom ;
+    rdfs:label "Runny Nose" .
+
+ex:SoreThroat a ex:Symptom ;
+    rdfs:label "Sore Throat" .
+
+ex:Headache a ex:Symptom ;
+    rdfs:label "Headache" .

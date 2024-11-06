@@ -1,24 +1,289 @@
 @prefix ex: <http://example.org/Otitis_Externa#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <http://example.org/Otitis_Externa> a owl:Ontology .
 
-ex:42859004 a owl:Class ;
-    rdfs:label "Tympanic membrane structure (body structure)" ;
+ex:113327001 a owl:Class ;
+    rdfs:label "oorschelp" ;
+    ex:hasDescription "Het uitwendige, zichtbare deel van het oor, waarmee geluiden worden opgevangen en wordt bepaald uit welke richting een geluid komt." ;
+    ex:hasId "113327001" ;
+    ex:hasSynonyms "structuur van auricula (lichaamsstructuur), structuur van auricula, auricula, pinna" ;
+    ex:hasType "body part" ;
     rdfs:subClassOf ex:117590005 .
 
-ex:Otitis_Externa a owl:Class ;
-    rdfs:label "Otitis Externa" .
+ex:42859004 a owl:Class ;
+    rdfs:label "trommelvlies" ;
+    ex:hasDescription "Vlies dat de uitwendige gehoorgang afsluit van de erachter gelegen trommelholte of het middenoor." ;
+    ex:hasId "42859004" ;
+    ex:hasSynonyms "structuur van membrana tympanica (lichaamsstructuur), structuur van membrana tympanica, membrana tympanica" ;
+    ex:hasType "body part" ;
+    rdfs:subClassOf ex:117590005 .
 
-ex:117590005 a owl:Class ;
-    rdfs:label "Ear structure (body structure)" ;
-    rdfs:subClassOf ex:69536005 .
+ex:hasRelation a owl:ObjectProperty ;
+    rdfs:label "has finding site" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:84301002 .
+
+ex:hasRelation10 a owl:ObjectProperty ;
+    rdfs:label "has finding site" ;
+    rdfs:domain ex:301354004 ;
+    rdfs:range ex:117590005 .
+
+ex:hasRelation11 a owl:ObjectProperty ;
+    rdfs:label "has associated symptom" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:301354004 .
+
+ex:hasRelation12 a owl:ObjectProperty ;
+    rdfs:label "has finding site" ;
+    rdfs:domain ex:699392007 ;
+    rdfs:range ex:117590005 .
+
+ex:hasRelation13 a owl:ObjectProperty ;
+    rdfs:label "has associated symptom" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:699392007 .
+
+ex:hasRelation14 a owl:ObjectProperty ;
+    rdfs:label "has finding site" ;
+    rdfs:domain ex:65668001 ;
+    rdfs:range ex:117590005 .
+
+ex:hasRelation15 a owl:ObjectProperty ;
+    rdfs:label "has associated symptom" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:65668001 .
+
+ex:hasRelation16 a owl:ObjectProperty ;
+    rdfs:label "has finding site" ;
+    rdfs:domain ex:15188001 ;
+    rdfs:range ex:91159003 .
+
+ex:hasRelation17 a owl:ObjectProperty ;
+    rdfs:label "has associated symptom" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:15188001 .
+
+ex:hasRelation18 a owl:ObjectProperty ;
+    rdfs:label "has finding site" ;
+    rdfs:domain ex:277170006 ;
+    rdfs:range ex:84301002 .
+
+ex:hasRelation19 a owl:ObjectProperty ;
+    rdfs:label "has associated symptom" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:277170006 .
+
+ex:hasRelation2 a owl:ObjectProperty ;
+    rdfs:label "has disorder" ;
+    rdfs:domain ex:123037004 ;
+    rdfs:range ex:3135009 .
+
+ex:hasRelation20 a owl:ObjectProperty ;
+    rdfs:label "has finding site" ;
+    rdfs:domain ex:277172003 ;
+    rdfs:range ex:84301002 .
+
+ex:hasRelation21 a owl:ObjectProperty ;
+    rdfs:label "has associated symptom" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:277172003 .
+
+ex:hasRelation22 a owl:ObjectProperty ;
+    rdfs:label "has associated treatment" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:396458002 .
+
+ex:hasRelation23 a owl:ObjectProperty ;
+    rdfs:label "has associated treatment" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:426734007 .
+
+ex:hasRelation24 a owl:ObjectProperty ;
+    rdfs:label "has associated treatment" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:387544009 .
+
+ex:hasRelation25 a owl:ObjectProperty ;
+    rdfs:label "has associated treatment" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:74476001 .
+
+ex:hasRelation3 a owl:ObjectProperty ;
+    rdfs:label "has associated disorder" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:3110003 .
+
+ex:hasRelation4 a owl:ObjectProperty ;
+    rdfs:label "has associated disorder" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:416675009 .
+
+ex:hasRelation5 a owl:ObjectProperty ;
+    rdfs:label "has associated disorder" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:21954000 .
+
+ex:hasRelation6 a owl:ObjectProperty ;
+    rdfs:label "has associated disorder" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:44653001 .
+
+ex:hasRelation7 a owl:ObjectProperty ;
+    rdfs:label "has associated disorder" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:125670008 .
+
+ex:hasRelation8 a owl:ObjectProperty ;
+    rdfs:label "has associated disorder" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:363668000 .
+
+ex:hasRelation9 a owl:ObjectProperty ;
+    rdfs:label "has associated disorder" ;
+    rdfs:domain ex:3135009 ;
+    rdfs:range ex:21051000146104 .
+
+ex:125670008 a owl:Class ;
+    rdfs:label "corpus alienum" ;
+    ex:hasId "125670008" ;
+    ex:hasSynonyms "corpus alienum (aandoening), vreemd lichaam, vreemd voorwerp" ;
+    ex:hasType "disorder" .
+
+ex:21051000146104 a owl:Class ;
+    rdfs:label "gehoorgangcarcinoom" ;
+    ex:hasId "21051000146104" ;
+    ex:hasSynonyms "carcinoom van huid van oor (aandoening), carcinoom van huid van oor" ;
+    ex:hasType "disorder" .
+
+ex:21954000 a owl:Class ;
+    rdfs:label "herpes zoster oticus" ;
+    ex:hasId "21954000" ;
+    ex:hasSynonyms "syndroom van Ramsay Hunt, Hunt-syndroom, Ramsay Hunt-syndroom, Ramsay Hunt-syndroom (aandoening)" ;
+    ex:hasType "disorder" .
+
+ex:3110003 a owl:Class ;
+    rdfs:label "otitis media acuta" ;
+    ex:hasId "3110003" ;
+    ex:hasSynonyms "acute otitis media, acute middenoorontsteking, acute otitis media (aandoening)" ;
+    ex:hasType "disorder" .
+
+ex:363668000 a owl:Class ;
+    rdfs:label "cholesteatoom" ;
+    ex:hasId "363668000" ;
+    ex:hasSynonyms "cholesteatoom (aandoening)" ;
+    ex:hasType "disorder" .
+
+ex:387544009 a owl:Class ;
+    rdfs:label "flucloxacilline" ;
+    ex:hasId "387544009" ;
+    ex:hasSynonyms "flucloxacilline (substantie)" ;
+    ex:hasType "treatment" .
+
+ex:396458002 a owl:Class ;
+    rdfs:label "hydrocortison" ;
+    ex:hasDescription "Subgroep binnen de corticosteroïden; hormonen die een belangrijke functie hebben bij het reguleren van het immuunsysteem, versterkt worden afgegeven bij stress en ontstekingsreacties onderdrukken; als geneesmiddel ook bekend als cortison of hydrocortison." ;
+    ex:hasId "396458002" ;
+    ex:hasSynonyms "cortisol, cortisol (substantie)" ;
+    ex:hasType "treatment" .
+
+ex:416675009 a owl:Class ;
+    rdfs:label "furunkel" ;
+    ex:hasDescription "Rode, pijnlijke, met pus gevulde zwellingen in de huid, veroorzaakt door een bacteriële infectie." ;
+    ex:hasId "416675009" ;
+    ex:hasSynonyms "furunkel (aandoening), steenpuist" ;
+    ex:hasType "disorder" .
+
+ex:426734007 a owl:Class ;
+    rdfs:label "triamcinolonacetonide" ;
+    ex:hasId "426734007" ;
+    ex:hasSynonyms "injectie van triamcinolonacetonide (verrichting), injectie van triamcinolonacetonide" ;
+    ex:hasType "treatment" .
+
+ex:44653001 a owl:Class ;
+    rdfs:label "erysipelas" ;
+    ex:hasDescription "Huidinfectie die wordt veroorzaakt door streptokokken of stafylokokken die via een wond binnendringen; er ontstaat een snel groter wordende rode plek en het lichaamsdeel waar de plek zich bevindt, kan rood, warm, dik en pijnlijk worden; ook kan iemand er erg ziek van worden met koorts en misselijkheid." ;
+    ex:hasId "44653001" ;
+    ex:hasSynonyms "erysipelas (aandoening), wondroos" ;
+    ex:hasType "disorder" .
+
+ex:74476001 a owl:Class ;
+    rdfs:label "occlusietherapie" ;
+    ex:hasId "74476001" ;
+    ex:hasSynonyms "epidermale occlusietherapie, epidermale occlusietherapie (verrichting)" ;
+    ex:hasType "treatment" .
 
 ex:123037004 a owl:Class ;
-    rdfs:label "Patient" .
+    rdfs:label "Patient" ;
+    ex:hasId 123037004 .
 
-ex:69536005 a owl:Class ;
-    rdfs:label "Head structure (body structure)" ;
+ex:15188001 a owl:Class ;
+    rdfs:label "gehoorverlies" ;
+    ex:hasDescription "Niet goed kunnen horen." ;
+    ex:hasId "15188001" ;
+    ex:hasSynonyms "slechthorendheid, gehoorverlies (aandoening)" ;
+    ex:hasType "symptom" .
+
+ex:277170006 a owl:Class ;
+    rdfs:label "zwelling van de gehoorgang" ;
+    ex:hasId "277170006" ;
+    ex:hasSynonyms "oedeem van uitwendige gehoorgang, oedeem van uitwendige gehoorgang (bevinding), oedeem van meatus acusticus externus" ;
+    ex:hasType "symptom" .
+
+ex:277172003 a owl:Class ;
+    rdfs:label "roodheid van de gehoorgang" ;
+    ex:hasId "277172003" ;
+    ex:hasSynonyms "erytheem van uitwendige gehoorgang (bevinding), erytheem van uitwendige gehoorgang, erythemateuze uitwendige gehoorgang" ;
+    ex:hasType "symptom" .
+
+ex:301354004 a owl:Class ;
+    rdfs:label "oorpijn" ;
+    ex:hasId "301354004" ;
+    ex:hasSynonyms "pijn aan oor (bevinding), otalgie, pijn aan oor" ;
+    ex:hasType "symptom" .
+
+ex:65668001 a owl:Class ;
+    rdfs:label "vocht uit het oor" ;
+    ex:hasDescription "Uitvloeiing van etterige vloeistof, soms met bloed, uit het middenoor door een gaatje in het trommelvlies, vaak als gevolg van een middenoorontsteking." ;
+    ex:hasId "65668001" ;
+    ex:hasSynonyms "loopoor, otorroe, otorroe (aandoening)" ;
+    ex:hasType "symptom" .
+
+ex:699392007 a owl:Class ;
+    rdfs:label "jeuk in het oor" ;
+    ex:hasId "699392007" ;
+    ex:hasSynonyms "jeuk aan oor, jeukend oor (bevinding), jeukend oor, pruritus aan oor" ;
+    ex:hasType "symptom" .
+
+ex:91159003 a owl:Class ;
+    rdfs:label "auditief systeem" ;
+    ex:hasId "91159003" ;
+    ex:hasSynonyms "akoestisch systeem, structuur van auditief systeem (lichaamsstructuur), gehoorstelsel, gehoorsysteem, structuur van auditief systeem" ;
+    ex:hasType "body part" ;
     rdfs:subClassOf ex:123037004 .
+
+ex:84301002 a owl:Class ;
+    rdfs:label "gehoorgang" ;
+    ex:hasDescription "Holle buis die de oorschelp met het trommelvlies verbindt." ;
+    ex:hasId "84301002" ;
+    ex:hasSynonyms "uitwendige gehoorgang, structuur van meatus acusticus externus (lichaamsstructuur), structuur van meatus acusticus externus" ;
+    ex:hasType "body part" ;
+    rdfs:subClassOf ex:117590005 .
+
+ex:117590005 a owl:Class ;
+    rdfs:label "oor" ;
+    ex:hasDescription "Organen waarmee geluiden worden waargenomen; in engere zin de oorschelpen." ;
+    ex:hasId "117590005" ;
+    ex:hasSynonyms "auris, structuur van oor, structuur van oor (lichaamsstructuur)" ;
+    ex:hasType "body part" ;
+    rdfs:subClassOf ex:91159003 .
+
+ex:3135009 a owl:Class ;
+    rdfs:label "otitis externa" ;
+    ex:hasDescription "Ontsteking van de uitwendige gehoorgang." ;
+    ex:hasId "3135009" ;
+    ex:hasSynonyms "otitis externa (aandoening), gehoorgangontsteking" ;
+    ex:hasType "main disorder" .
 
